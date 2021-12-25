@@ -24,6 +24,22 @@
   color: white;
 }
 
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.HomeButton {
+  float: right;
+  margin-right: 5px;
+}
+
+.SubSec {
+  margin-left: 10px;
+}
+
 .App-link {
   color: #61dafb;
 }
