@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "serviceConfiguration": {
+    "apiName": "sionhospitaldigitize",
+    "serviceName": "AppSync",
+    "gqlSchemaPath": "/tmp/amplify-e20cc915-fe8d-44c5-a826-178e0942d166/amplify/backend/api/sionhospitaldigitize/schema.graphql",
+    "defaultAuthType": {
+      "mode": "API_KEY",
+      "keyDescription": "api key description",
+      "expirationTime": 30
+    },
+    "conflictResolution": {
+      "defaultResolutionStrategy": {
+        "type": "AUTOMERGE"
+      }
+    },
+    "additionalAuthTypes": [
+      {
+        "mode": "AWS_IAM"
+      },
+      {
+        "mode": "AMAZON_COGNITO_USER_POOLS",
+        "cognitoUserPoolId": "authsionhospitaldigitizef2ec37fe"
+      }
+    ]
+  }
+}

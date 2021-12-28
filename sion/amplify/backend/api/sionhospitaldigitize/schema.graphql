@@ -1,0 +1,19 @@
+input AMPLIFY {
+  globalAuthRule: AuthRule = {allow: public}
+}
+
+type PatientRecord @model {
+  id: ID!
+  fname: String!
+  lname: String!
+  Document_type: String!
+  Aadhar_no: Int 
+  Contact: Int 
+  OPD_no: Int!
+  CDO_name: String!
+  Department: String!
+  Request_type: String!
+  self_pay: Int!
+  donor_pay: Int!
+}
+  
