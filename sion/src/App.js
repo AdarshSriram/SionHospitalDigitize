@@ -1,4 +1,4 @@
-import { Amplify, API } from 'aws-amplify';
+import { Amplify } from 'aws-amplify';
 import { useState } from 'react';
 import './App.css'
 import {
@@ -34,7 +34,6 @@ function App({ signOut, user }) {
         <ul>
           <li><button class = 'ChoiceButton' onClick={() => { setAddFlag(true);setHomeFlag(false);}}>Add New Patient</button></li>
           <li><button class = 'ChoiceButton' onClick={() => {setFinderFlag(true);setHomeFlag(false);}}>Find Patient</button></li>
-          <li><button class = 'ChoiceButton' onClick={() => {setLinkFlag(true);setHomeFlag(false);}}>Link Patient to Vendor</button></li>
         </ul>
       </div>
       </>
@@ -57,15 +56,6 @@ function App({ signOut, user }) {
         <button class = 'SignOutButton' onClick={signOut}>Sign out</button>
         <button class = 'HomeButton' onClick={() => { setAddFlag(false);setHomeFlag(true);}}>Home</button>
         <PatientAdd signOut={signOut}/>
-        </>
-      )
-    }
-    if (linkFlag){
-      return (
-        <>
-        <button class = 'SignOutButton' onClick={signOut}>Sign out</button>
-        <button class = 'HomeButton' onClick={()=>{setLinkFlag(false);setHomeFlag(true);}}>Home</button>
-        <VendorLink signOut={signOut}/>
         </>
       )
     }

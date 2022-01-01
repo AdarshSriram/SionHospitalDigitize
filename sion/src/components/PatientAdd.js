@@ -2,7 +2,6 @@ import { useState } from "react";
 import { API, graphqlOperation } from 'aws-amplify';
 import { createPatientRecord} from '../graphql/mutations';
 
-
 function PatientAdd ({ signOut, user }) {
 
     const [submittedFlag, setSubmittedFlag] = useState(false);
@@ -77,28 +76,13 @@ function PatientAdd ({ signOut, user }) {
                     <label for="donor_pay">Donor Payment Amount: </label>
                     <input type="text" id="donor_pay" /><br/><br/>
                     
-                    <button class = 'SubmitForm' type='button' onClick={handleSubmit}>Submit</button>
+                    <button class = 'SubmitForm' type='button' onClick={handleSubmit}>Submit</button><br/>
+
+                    {submittedFlag && <h3>Successfully added patient record!</h3>}
                 </form>
             </div>
         </>
     );
 };
 
-export default PatientAdd;
-
-
-// Record Schema: 
-// type PatientRecord @model {
-//     id: ID!
-//     fname: String!
-//     lname: String!
-//     Document_type: String!
-//     Aadhar_no: Int 
-//     Contact: Int 
-//     OPD_no: Int!
-//     CDO_name: String!
-//     Department: String!
-//     Request_type: String!
-//     self_pay: Int!
-//     donor_pay: Int!
-//   }
+export default PatientAdd; 

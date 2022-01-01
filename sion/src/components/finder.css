@@ -1,0 +1,55 @@
+.container{
+  padding: 25px 25px 25px 25px
+}
+
+.tablecenter {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+.row {
+  margin-left: 20px
+}
+
+table, td, th {
+  table-layout: fixed;
+  width: 100%;
+  border-collapse: collapse;
+  border: 3px solid purple;
+  text-align:center;
+  padding: 20px;
+}
+
+.centeredMessage {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+.csvButton {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px
+}
+
+.tableTitle {
+  color: purple;
+  margin-bottom: 10px;
+  font-weight: bold;
+  font-size: 20px
+}
+
+.querySummary {
+  font-style: italic;
+  font-weight: bold;
+  color: darkblue;
+  position: relative
+}
+
+.querySummaryList {
+    position: relative;
+    left: -1px;
+    color: darkblue;
+    position: relative
+}
