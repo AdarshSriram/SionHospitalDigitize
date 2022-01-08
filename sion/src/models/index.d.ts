@@ -2,7 +2,30 @@ import { ModelInit, MutableModel, PersistentModelConstructor } from "@aws-amplif
 
 
 
-export declare class HelpRequests {
+
+
+type PatientRecordHelpAssignmentMetaData = {
+  readOnlyFields: 'createdAt' | 'updatedAt';
+}
+
+type TrustMetaData = {
+  readOnlyFields: 'createdAt' | 'updatedAt';
+}
+
+export declare class PatientRecordHelpAssignment {
+  readonly id: string;
+  readonly fname: string;
+  readonly lname: string;
+  readonly document_type: string;
+  readonly de_by: string;
+  readonly indoor_no: number;
+  readonly rf_rs_name?: string;
+  readonly card_no: number;
+  readonly age: number;
+  readonly address?: string;
+  readonly contact?: number;
+  readonly ward_no: string;
+  readonly before_help_amt: number;
   readonly help_type: string;
   readonly help_remark?: string;
   readonly department: string;
@@ -17,37 +40,11 @@ export declare class HelpRequests {
   readonly donation_amount: number;
   readonly cheque_no?: string;
   readonly help_given: boolean;
-  constructor(init: ModelInit<HelpRequests>);
-}
-
-type PatientRecordMetaData = {
-  readOnlyFields: 'createdAt' | 'updatedAt';
-}
-
-type TrustMetaData = {
-  readOnlyFields: 'createdAt' | 'updatedAt';
-}
-
-export declare class PatientRecord {
-  readonly id: string;
-  readonly fname: string;
-  readonly lname: string;
-  readonly document_type: string;
-  readonly de_by: string;
-  readonly indoor_no: number;
-  readonly rf_rs_name?: string;
-  readonly card_no: number;
-  readonly age: number;
-  readonly address?: string;
-  readonly contact?: number;
-  readonly ward_no: string;
-  readonly before_help_amt: number;
-  readonly help_requests: HelpRequests[];
   readonly additional_comments?: string;
   readonly createdAt?: string;
   readonly updatedAt?: string;
-  constructor(init: ModelInit<PatientRecord, PatientRecordMetaData>);
-  static copyOf(source: PatientRecord, mutator: (draft: MutableModel<PatientRecord, PatientRecordMetaData>) => MutableModel<PatientRecord, PatientRecordMetaData> | void): PatientRecord;
+  constructor(init: ModelInit<PatientRecordHelpAssignment, PatientRecordHelpAssignmentMetaData>);
+  static copyOf(source: PatientRecordHelpAssignment, mutator: (draft: MutableModel<PatientRecordHelpAssignment, PatientRecordHelpAssignmentMetaData>) => MutableModel<PatientRecordHelpAssignment, PatientRecordHelpAssignmentMetaData> | void): PatientRecordHelpAssignment;
 }
 
 export declare class Trust {

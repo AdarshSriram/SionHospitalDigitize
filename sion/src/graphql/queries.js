@@ -1,9 +1,9 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const getPatientRecord = /* GraphQL */ `
-  query GetPatientRecord($id: ID!) {
-    getPatientRecord(id: $id) {
+export const getPatientRecordHelpAssignment = /* GraphQL */ `
+  query GetPatientRecordHelpAssignment($id: ID!) {
+    getPatientRecordHelpAssignment(id: $id) {
       id
       fname
       lname
@@ -17,22 +17,20 @@ export const getPatientRecord = /* GraphQL */ `
       contact
       ward_no
       before_help_amt
-      help_requests {
-        help_type
-        help_remark
-        department
-        diagnosis
-        unit
-        opd
-        cdo_name
-        trust_name
-        patient_contribution
-        pbcf
-        cdo_or_trust
-        donation_amount
-        cheque_no
-        help_given
-      }
+      help_type
+      help_remark
+      department
+      diagnosis
+      unit
+      opd
+      cdo_name
+      trust_name
+      patient_contribution
+      pbcf
+      cdo_or_trust
+      donation_amount
+      cheque_no
+      help_given
       additional_comments
       createdAt
       updatedAt
@@ -42,13 +40,17 @@ export const getPatientRecord = /* GraphQL */ `
     }
   }
 `;
-export const listPatientRecords = /* GraphQL */ `
-  query ListPatientRecords(
-    $filter: ModelPatientRecordFilterInput
+export const listPatientRecordHelpAssignments = /* GraphQL */ `
+  query ListPatientRecordHelpAssignments(
+    $filter: ModelPatientRecordHelpAssignmentFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    listPatientRecords(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    listPatientRecordHelpAssignments(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
       items {
         id
         fname
@@ -63,22 +65,20 @@ export const listPatientRecords = /* GraphQL */ `
         contact
         ward_no
         before_help_amt
-        help_requests {
-          help_type
-          help_remark
-          department
-          diagnosis
-          unit
-          opd
-          cdo_name
-          trust_name
-          patient_contribution
-          pbcf
-          cdo_or_trust
-          donation_amount
-          cheque_no
-          help_given
-        }
+        help_type
+        help_remark
+        department
+        diagnosis
+        unit
+        opd
+        cdo_name
+        trust_name
+        patient_contribution
+        pbcf
+        cdo_or_trust
+        donation_amount
+        cheque_no
+        help_given
         additional_comments
         createdAt
         updatedAt
@@ -91,14 +91,14 @@ export const listPatientRecords = /* GraphQL */ `
     }
   }
 `;
-export const syncPatientRecords = /* GraphQL */ `
-  query SyncPatientRecords(
-    $filter: ModelPatientRecordFilterInput
+export const syncPatientRecordHelpAssignments = /* GraphQL */ `
+  query SyncPatientRecordHelpAssignments(
+    $filter: ModelPatientRecordHelpAssignmentFilterInput
     $limit: Int
     $nextToken: String
     $lastSync: AWSTimestamp
   ) {
-    syncPatientRecords(
+    syncPatientRecordHelpAssignments(
       filter: $filter
       limit: $limit
       nextToken: $nextToken
@@ -118,22 +118,20 @@ export const syncPatientRecords = /* GraphQL */ `
         contact
         ward_no
         before_help_amt
-        help_requests {
-          help_type
-          help_remark
-          department
-          diagnosis
-          unit
-          opd
-          cdo_name
-          trust_name
-          patient_contribution
-          pbcf
-          cdo_or_trust
-          donation_amount
-          cheque_no
-          help_given
-        }
+        help_type
+        help_remark
+        department
+        diagnosis
+        unit
+        opd
+        cdo_name
+        trust_name
+        patient_contribution
+        pbcf
+        cdo_or_trust
+        donation_amount
+        cheque_no
+        help_given
         additional_comments
         createdAt
         updatedAt

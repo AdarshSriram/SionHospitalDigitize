@@ -1,12 +1,12 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const createPatientRecord = /* GraphQL */ `
-  mutation CreatePatientRecord(
-    $input: CreatePatientRecordInput!
-    $condition: ModelPatientRecordConditionInput
+export const createPatientRecordHelpAssignment = /* GraphQL */ `
+  mutation CreatePatientRecordHelpAssignment(
+    $input: CreatePatientRecordHelpAssignmentInput!
+    $condition: ModelPatientRecordHelpAssignmentConditionInput
   ) {
-    createPatientRecord(input: $input, condition: $condition) {
+    createPatientRecordHelpAssignment(input: $input, condition: $condition) {
       id
       fname
       lname
@@ -20,22 +20,20 @@ export const createPatientRecord = /* GraphQL */ `
       contact
       ward_no
       before_help_amt
-      help_requests {
-        help_type
-        help_remark
-        department
-        diagnosis
-        unit
-        opd
-        cdo_name
-        trust_name
-        patient_contribution
-        pbcf
-        cdo_or_trust
-        donation_amount
-        cheque_no
-        help_given
-      }
+      help_type
+      help_remark
+      department
+      diagnosis
+      unit
+      opd
+      cdo_name
+      trust_name
+      patient_contribution
+      pbcf
+      cdo_or_trust
+      donation_amount
+      cheque_no
+      help_given
       additional_comments
       createdAt
       updatedAt
@@ -45,12 +43,12 @@ export const createPatientRecord = /* GraphQL */ `
     }
   }
 `;
-export const updatePatientRecord = /* GraphQL */ `
-  mutation UpdatePatientRecord(
-    $input: UpdatePatientRecordInput!
-    $condition: ModelPatientRecordConditionInput
+export const updatePatientRecordHelpAssignment = /* GraphQL */ `
+  mutation UpdatePatientRecordHelpAssignment(
+    $input: UpdatePatientRecordHelpAssignmentInput!
+    $condition: ModelPatientRecordHelpAssignmentConditionInput
   ) {
-    updatePatientRecord(input: $input, condition: $condition) {
+    updatePatientRecordHelpAssignment(input: $input, condition: $condition) {
       id
       fname
       lname
@@ -64,22 +62,20 @@ export const updatePatientRecord = /* GraphQL */ `
       contact
       ward_no
       before_help_amt
-      help_requests {
-        help_type
-        help_remark
-        department
-        diagnosis
-        unit
-        opd
-        cdo_name
-        trust_name
-        patient_contribution
-        pbcf
-        cdo_or_trust
-        donation_amount
-        cheque_no
-        help_given
-      }
+      help_type
+      help_remark
+      department
+      diagnosis
+      unit
+      opd
+      cdo_name
+      trust_name
+      patient_contribution
+      pbcf
+      cdo_or_trust
+      donation_amount
+      cheque_no
+      help_given
       additional_comments
       createdAt
       updatedAt
@@ -89,12 +85,12 @@ export const updatePatientRecord = /* GraphQL */ `
     }
   }
 `;
-export const deletePatientRecord = /* GraphQL */ `
-  mutation DeletePatientRecord(
-    $input: DeletePatientRecordInput!
-    $condition: ModelPatientRecordConditionInput
+export const deletePatientRecordHelpAssignment = /* GraphQL */ `
+  mutation DeletePatientRecordHelpAssignment(
+    $input: DeletePatientRecordHelpAssignmentInput!
+    $condition: ModelPatientRecordHelpAssignmentConditionInput
   ) {
-    deletePatientRecord(input: $input, condition: $condition) {
+    deletePatientRecordHelpAssignment(input: $input, condition: $condition) {
       id
       fname
       lname
@@ -108,22 +104,20 @@ export const deletePatientRecord = /* GraphQL */ `
       contact
       ward_no
       before_help_amt
-      help_requests {
-        help_type
-        help_remark
-        department
-        diagnosis
-        unit
-        opd
-        cdo_name
-        trust_name
-        patient_contribution
-        pbcf
-        cdo_or_trust
-        donation_amount
-        cheque_no
-        help_given
-      }
+      help_type
+      help_remark
+      department
+      diagnosis
+      unit
+      opd
+      cdo_name
+      trust_name
+      patient_contribution
+      pbcf
+      cdo_or_trust
+      donation_amount
+      cheque_no
+      help_given
       additional_comments
       createdAt
       updatedAt

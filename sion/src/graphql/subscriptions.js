@@ -1,9 +1,9 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const onCreatePatientRecord = /* GraphQL */ `
-  subscription OnCreatePatientRecord {
-    onCreatePatientRecord {
+export const onCreatePatientRecordHelpAssignment = /* GraphQL */ `
+  subscription OnCreatePatientRecordHelpAssignment {
+    onCreatePatientRecordHelpAssignment {
       id
       fname
       lname
@@ -17,22 +17,20 @@ export const onCreatePatientRecord = /* GraphQL */ `
       contact
       ward_no
       before_help_amt
-      help_requests {
-        help_type
-        help_remark
-        department
-        diagnosis
-        unit
-        opd
-        cdo_name
-        trust_name
-        patient_contribution
-        pbcf
-        cdo_or_trust
-        donation_amount
-        cheque_no
-        help_given
-      }
+      help_type
+      help_remark
+      department
+      diagnosis
+      unit
+      opd
+      cdo_name
+      trust_name
+      patient_contribution
+      pbcf
+      cdo_or_trust
+      donation_amount
+      cheque_no
+      help_given
       additional_comments
       createdAt
       updatedAt
@@ -42,9 +40,9 @@ export const onCreatePatientRecord = /* GraphQL */ `
     }
   }
 `;
-export const onUpdatePatientRecord = /* GraphQL */ `
-  subscription OnUpdatePatientRecord {
-    onUpdatePatientRecord {
+export const onUpdatePatientRecordHelpAssignment = /* GraphQL */ `
+  subscription OnUpdatePatientRecordHelpAssignment {
+    onUpdatePatientRecordHelpAssignment {
       id
       fname
       lname
@@ -58,22 +56,20 @@ export const onUpdatePatientRecord = /* GraphQL */ `
       contact
       ward_no
       before_help_amt
-      help_requests {
-        help_type
-        help_remark
-        department
-        diagnosis
-        unit
-        opd
-        cdo_name
-        trust_name
-        patient_contribution
-        pbcf
-        cdo_or_trust
-        donation_amount
-        cheque_no
-        help_given
-      }
+      help_type
+      help_remark
+      department
+      diagnosis
+      unit
+      opd
+      cdo_name
+      trust_name
+      patient_contribution
+      pbcf
+      cdo_or_trust
+      donation_amount
+      cheque_no
+      help_given
       additional_comments
       createdAt
       updatedAt
@@ -83,9 +79,9 @@ export const onUpdatePatientRecord = /* GraphQL */ `
     }
   }
 `;
-export const onDeletePatientRecord = /* GraphQL */ `
-  subscription OnDeletePatientRecord {
-    onDeletePatientRecord {
+export const onDeletePatientRecordHelpAssignment = /* GraphQL */ `
+  subscription OnDeletePatientRecordHelpAssignment {
+    onDeletePatientRecordHelpAssignment {
       id
       fname
       lname
@@ -99,22 +95,20 @@ export const onDeletePatientRecord = /* GraphQL */ `
       contact
       ward_no
       before_help_amt
-      help_requests {
-        help_type
-        help_remark
-        department
-        diagnosis
-        unit
-        opd
-        cdo_name
-        trust_name
-        patient_contribution
-        pbcf
-        cdo_or_trust
-        donation_amount
-        cheque_no
-        help_given
-      }
+      help_type
+      help_remark
+      department
+      diagnosis
+      unit
+      opd
+      cdo_name
+      trust_name
+      patient_contribution
+      pbcf
+      cdo_or_trust
+      donation_amount
+      cheque_no
+      help_given
       additional_comments
       createdAt
       updatedAt

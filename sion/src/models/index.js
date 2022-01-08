@@ -4,10 +4,9 @@ import { schema } from './schema';
 
 
 
-const { PatientRecord, Trust, HelpRequests } = initSchema(schema);
+const { PatientRecordHelpAssignment, Trust } = initSchema(schema);
 
 export {
-  PatientRecord,
-  Trust,
-  HelpRequests
+  PatientRecordHelpAssignment,
+  Trust
 };

@@ -31,9 +31,8 @@
   align-items: center;
 }
 
-.HomeButton {
-  float: right;
-  margin-right: 5px;
+.ButtonRow {
+  margin: 5px;
 }
 
 .SubSec {

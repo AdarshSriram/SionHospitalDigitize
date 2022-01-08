@@ -10,9 +10,12 @@ import {
 } from "react-router-dom";
 import PatientFinder from './components/PatientFinder'
 import Finder from './components/Finder'
+import Adder from './components/Adder'
 import PatientAdd from './components/PatientAdd'
 import { withAuthenticator } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import {Container, Button, Row, Stack} from 'react-bootstrap'
 
 import awsExports from './aws-exports';
 Amplify.configure(awsExports);
@@ -24,40 +27,58 @@ function App({ signOut, user }) {
   const [homeFlag, setHomeFlag] = useState(true);
   const [linkFlag, setLinkFlag] = useState(false);
 
+  const SignOutButton = <Button variant = 'outline-dark' size = 'sm' onClick={signOut}>Sign out</Button>
+
   if (homeFlag){
     return (
-      <>
-      <button class = 'SignOutButton' onClick={signOut}>Sign out</button>
-      <h1 class = 'header'>Hello</h1>
-      <div class = 'SubSec'>
-        <h2>Choose Action</h2>
-        <ul>
-          <li><button class = 'ChoiceButton' onClick={() => { setAddFlag(true);setHomeFlag(false);}}>Add New Patient</button></li>
-          <li><button class = 'ChoiceButton' onClick={() => {setFinderFlag(true);setHomeFlag(false);}}>Find Patient</button></li>
-        </ul>
-      </div>
-      </>
+      <Container fluid>
+        {SignOutButton}<br/>
+        <Stack gap = {2}>
+          <div class="d-flex justify-content-center"><h1>Welcome</h1></div>
+
+          <h2>Choose Action</h2>
+
+          <Stack gap={3}>
+            <Row>
+            <Button variant="outline-primary" size="lg" onClick={() => { setAddFlag(true);setHomeFlag(false);}}>Add Patient Record</Button>
+            </Row>
+            
+            <Row>
+            <Button variant="outline-primary" size="lg" onClick={() => {setFinderFlag(true);setHomeFlag(false);}}>Find Records</Button>
+            </Row>
+          </Stack>
+
+        </Stack>
+
+      </Container>
     )
   }
 
   else{
     if (finderFlag){
       return (
-      <div>
-      <button class = 'SignOutButton' onClick={signOut}>Sign out</button>
-      <button class = 'HomeButton' onClick={() => { setFinderFlag(false);setHomeFlag(true);}}>Home</button>
-      {/* <PatientFinder signOut={signOut}/>; */}
-      <Finder/>
-      </div>
+      <Container fluid>
+        <Stack gap={2}>
+        <Row>
+        <div class="RuttonRow">
+          {SignOutButton}
+          <Button variant = 'secondary' size = 'sm' onClick={() => { setFinderFlag(false);setHomeFlag(true);}}>Home</Button>
+        </div>
+        </Row>
+        {/* <PatientFinder signOut={signOut}/>; */}
+        <Row><Finder/></Row>
+        </Stack>
+      </Container>
       )
     }
     if (addFlag){
       return (
-        <>
-        <button class = 'SignOutButton' onClick={signOut}>Sign out</button>
-        <button class = 'HomeButton' onClick={() => { setAddFlag(false);setHomeFlag(true);}}>Home</button>
-        <PatientAdd signOut={signOut}/>
-        </>
+        <Container fluid>
+        {SignOutButton}
+        <Button variant = 'secondary'  size = 'sm' onClick={() => { setAddFlag(false);setHomeFlag(true);}}>Home</Button>
+        {/* <PatientAdd signOut={signOut}/> */}
+        <Adder/>
+        </Container>
       )
     }
   }

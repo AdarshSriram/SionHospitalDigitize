@@ -19,6 +19,11 @@ export type AmplifyDependentResourcesAttributes = {
         }
     },
     "api": {
+        "sionAPI": {
+            "RootUrl": "string",
+            "ApiName": "string",
+            "ApiId": "string"
+        },
         "sionhospitaldigitize": {
             "GraphQLAPIKeyOutput": "string",
             "GraphQLAPIIdOutput": "string",

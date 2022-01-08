@@ -2,7 +2,7 @@ input AMPLIFY {
   globalAuthRule: AuthRule = {allow: public}
 }
 
-type PatientRecord @model {
+type PatientRecordHelpAssignment @model {
   id: ID!
   fname: String!
   lname: String!
@@ -16,20 +16,6 @@ type PatientRecord @model {
   contact: Int
   ward_no: String!
   before_help_amt: Int!
-  help_requests: [HelpRequests!]!
-  additional_comments: String
-}
-
-type Trust @model {
-  id: ID!
-  name: String!
-  email: AWSEmail! 
-  phone: Int!
-  contact_person: String
-  address: String
-}
-
-type HelpRequests {
   help_type: String!
   help_remark: String
   department: String!
@@ -44,5 +30,15 @@ type HelpRequests {
   donation_amount: Int!
   cheque_no: String
   help_given: Boolean!
+  additional_comments: String
+}
+
+type Trust @model {
+  id: ID!
+  name: String!
+  email: AWSEmail! 
+  phone: Int!
+  contact_person: String
+  address: String
 }
   
