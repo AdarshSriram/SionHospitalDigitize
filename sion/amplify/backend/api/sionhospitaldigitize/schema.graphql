@@ -6,16 +6,43 @@ type PatientRecord @model {
   id: ID!
   fname: String!
   lname: String!
-  Document_type: String!
-  Aadhar_no: Int 
-  Contact: Int 
-  OPD_no: Int!
-  CDO_name: String!
-  Department: String!
-  Request_type: String!
-  donor_name: String!
-  self_pay: Int!
-  donor_pay: Int!
-  cheque: String!
+  document_type: String!
+  de_by: String!
+  indoor_no: Int!
+  rf_rs_name: String
+  card_no: Int!
+  age: Int! 
+  address: String
+  contact: Int
+  ward_no: String!
+  before_help_amt: Int!
+  help_requests: [HelpRequests!]!
+  additional_comments: String
+}
+
+type Trust @model {
+  id: ID!
+  name: String!
+  email: AWSEmail! 
+  phone: Int!
+  contact_person: String
+  address: String
+}
+
+type HelpRequests {
+  help_type: String!
+  help_remark: String
+  department: String!
+  diagnosis: String!
+  unit: String!
+  opd: String!
+  cdo_name: String!
+  trust_name: String!
+  patient_contribution: Int!
+  pbcf: Int!
+  cdo_or_trust: String!
+  donation_amount: Int!
+  cheque_no: String
+  help_given: Boolean!
 }
   

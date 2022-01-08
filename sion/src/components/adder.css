@@ -1,0 +1,13 @@
+.reqField {
+    font-weight: bold;
+}
+
+.typeErr {
+    color: red;
+    flex: left
+}
+
+.submitButton {
+    margin-left: auto;
+    margin-right:auto
+}

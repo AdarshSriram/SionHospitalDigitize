@@ -9,7 +9,7 @@ import {
   Redirect
 } from "react-router-dom";
 import PatientFinder from './components/PatientFinder'
-import VendorLink from './components/VendorLink'
+import Finder from './components/Finder'
 import PatientAdd from './components/PatientAdd'
 import { withAuthenticator } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
@@ -46,7 +46,8 @@ function App({ signOut, user }) {
       <div>
       <button class = 'SignOutButton' onClick={signOut}>Sign out</button>
       <button class = 'HomeButton' onClick={() => { setFinderFlag(false);setHomeFlag(true);}}>Home</button>
-      <PatientFinder signOut={signOut}/>;
+      {/* <PatientFinder signOut={signOut}/>; */}
+      <Finder/>
       </div>
       )
     }

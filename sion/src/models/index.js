@@ -4,8 +4,10 @@ import { schema } from './schema';
 
 
 
-const { PatientRecord } = initSchema(schema);
+const { PatientRecord, Trust, HelpRequests } = initSchema(schema);
 
 export {
-  PatientRecord
+  PatientRecord,
+  Trust,
+  HelpRequests
 };

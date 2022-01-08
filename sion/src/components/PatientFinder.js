@@ -1,8 +1,10 @@
 import { useState } from "react";
 import * as queries from '../graphql/queries';
-import { API, } from 'aws-amplify';
+import { API } from 'aws-amplify';
 import styles from "./finder.css"
 import { ExportToCsv } from 'export-to-csv';
+import {parseAndVerify, PrettyColumnMap, HelpFieldNames, } from "./type_utils"
+import {filterOptions} from './ui_utils'
 
 function Finder ({ signOut, user }) {
 
@@ -12,13 +14,17 @@ function Finder ({ signOut, user }) {
     const [showTable, setShowTable] = useState(false)
     const [tableData, setTableData] = useState({})
     const [querySummary, setQuerySummary] = useState(null)
+    const [typeErr, setTypeErr] = useState([])
 
     function handleQuery(getAll = false){
       if (!getAll){
-        const data = parseAndVerify()
-        if (!data){
-          setQueryErr("")
+        const form = document.getElementById("querymaker")
+        const queryData = parseAndVerify(form)
+        if (queryData["err"].length > 0){
+          setTypeErr(queryData["err"])
+          return
         }
+      const data = queryData["data"]
       var queryFilter = []
       var summary = []
       for (const [key, value] of Object.entries(data)) {
@@ -38,70 +44,84 @@ function Finder ({ signOut, user }) {
        .graphql({ query: queries.listPatientRecords, variables: { filter: filter}})
        .then((res)=> {
         const records = res["data"]["listPatientRecords"]["items"]
+        console.log(records)
         setQuerySummary(summary)
         generateTable(records)
         setShowTable(true)
-       });     
+       })
+       .catch((err)=>console.log(err));     
       }
       else{
         API
-       .graphql({ query: queries.listPatientRecords, variables : {}})
+       .graphql({ query: queries.listPatientRecords})
        .then((res)=> {
         const records = res["data"]["listPatientRecords"]["items"]
         setQuerySummary(null)
         generateTable(records)
         setShowTable(true)
-       });     
+       })
+       .catch((err)=>console.log(err));     ;     
       }
        
     }
-
-    function parseAndVerify(){
-      var data = {}
-      const form = document.getElementById("querymaker")
-      for ( var i = 0; i < form.elements.length; i++ ) {
-          var e = form.elements[i];
-          if (encodeURIComponent(e.id) !== ""){
-              data[encodeURIComponent(e.id)] = encodeURIComponent(e.value)
-          }
-        }
-        return data;
-      }
 
     function generateTable(records){
       var data = {}
       data["headers"] = []
       data["rows"] = []
-      data["raw"] = records
       if (records.length > 0 ){
         for (const col of Object.keys(records[0]).filter(heading => Object.keys(PrettyColumnMap).includes(heading))) {
-          data["headers"].push(
-            <th>
-              {PrettyColumnMap[col]}
-            </th>
-          )
+          if (col !== "help_requests"){
+            data["headers"].push(
+              <th>
+                {PrettyColumnMap[col]}
+              </th>
+            )
+          }
+            else{
+              for (const subCol of HelpFieldNames['combined']){
+                console.log(subCol)
+                data["headers"].push(
+                  <th>
+                    {PrettyColumnMap[subCol]}
+                  </th>
+                )
+              }
+            }
+          
         }
       }
       data['headers'] = <tr>{data["headers"]}</tr>
 
       for (var i=0; i<records.length;i++){
         records[i]["id"] = i
-        delete records[i]["updatedAt"]; 
-        delete records[i]["_version"]; 
-        delete records[i]["_lastChangedAt"]; 
+        // delete records[i]["updatedAt"]; 
+        // delete records[i]["_version"]; 
+        // delete records[i]["_lastChangedAt"]; 
+        const NotInc = ["updatedAt", '_version', '_lastChangedAt', 'help_requests']
         const created = records[i]["createdAt"]
         records[i]["createdAt"] = created.substring(0, created.indexOf("T"))
-        
+
+        for (var j = 0; j<records[i]["help_requests"].length;j++){
+          var row = Object.entries(records[i])
+          .filter(x => !NotInc.includes(x))
+          .map(
+            (x, y )=> <td>{y}</td>
+          )
+          row.concat(
+              Object.values(records[i]["help_requests"][j]).map(
+                x => <td>{x}</td>
+              )
+          )
+        }
         data["rows"].push(
           <tr>
-            {Object.values(records[i]).map(
-              x => <td>{x}</td>
-            )}
+            {row}
           </tr>
         )
       }
+      data["raw"] = records
       setTableData(data)
-      console.log(querySummary)
     }
   
     function makeValueInputs(){
@@ -162,40 +182,7 @@ function Finder ({ signOut, user }) {
           <div class = 'column'>
             <form id="finder">
               <label for="filter">Choose Fields to Filter Records By: </label> <br/>
-
-              <label for="Name">Full Name: </label>
-              <input type="checkbox" id="Full Name" name="Name" /><br/><br/>
-
-              <label for="doc_type">Document Type: </label>
-              <input type="checkbox" id="Document_type" name="doc_type" /><br/><br/>
-
-              <label for="aadhar">Aadhar No.: </label>
-              <input type="checkbox" id="Aadhar_no" /><br/><br/>
-
-              <label for="contact">Contact: </label>
-              <input type="checkbox" id="Contact"/><br/><br/>
-
-              <label for="opd">OPD No.: </label>
-              <input type="checkbox" id="OPD_no" name="opd" /><br/><br/>
-
-              {/* <label for="unit"> Unit: </label>
-              <input type="text" id="unit" /><br/><br/> */}
-
-              <label for="dept"> Department: </label>
-              <input type="checkbox" id="Department" /><br/><br/>
-
-              <label for="req_type"> Request Type: </label>
-              <input type="checkbox" id="Request_type" /><br/><br/>
-
-              <label for="cdo"> CDO Name: </label>
-              <input type="checkbox" id="CDO_name" /><br/><br/>
-
-              <label for="cdo"> Date: </label>
-              <input type="checkbox" id="date" /><br/><br/>
-
-              <label for="cdo"> Month: </label>
-              <input type="checkbox" id="month" /><br/><br/>
-
+              {filterOptions()}
               <button class = 'SubmitFields' type = "button" onClick={makeValueInputs}>Next</button><br/>
             </form>
 
@@ -205,6 +192,13 @@ function Finder ({ signOut, user }) {
               {nextStep && 
               <>
                   {fieldBoxes}
+                  {typeErr.length > 0 &&
+                        <>
+                        <il>
+                            {typeErr}
+                        </il>
+                        </>
+                    }
                   {fieldBoxes.length >0 &&
                    <><br/><button class = 'SubmitFind' type = "button" onClick={()=>handleQuery(false)}>Find Records</button><br/></>
                  }
@@ -246,23 +240,5 @@ function Finder ({ signOut, user }) {
     )
 };
 
-
-const PrettyColumnMap = {
-  id: "Sr. No.",
-  fname: "First Name",
-  lname: "Last Name",
-  Document_type: "Document Type",
-  Aadhar_no: "Aadhar No.",
-  Contact: "Contact No.",
-  OPD_no: "OPD No.",
-  CDO_name: "CDO Name",
-  Department: "Dept.",
-  Request_type: "Request Type",
-  self_pay: "Patient Payment",
-  donor_pay: "Donor Payment",
-  donor_name: "Donor",
-  month: "Month",
-  date: "Date (DD/MM/YYYY)"
-}
 
 export default Finder;
