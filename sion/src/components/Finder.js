@@ -123,7 +123,9 @@ function Finder (){
                     </Stack>
                 </div>
 
-                <Button onClick={downloadCSV}>Download Spreadsheet</Button>
+            {tableData.raw && tableData.raw.length > 0 && 
+            
+            <><Button onClick={downloadCSV}>Download Spreadsheet</Button>
             <Table striped bordered hover>
                 <caption class="tableTitle">Search Results</caption>
                 {tableData["headers"]}
@@ -131,6 +133,7 @@ function Finder (){
                     {tableData["rows"]}
                 </tbody>
             </Table>
+            </>}
             </Stack>
         </Container>
     )

@@ -57,7 +57,7 @@ function Adder (){
         return tmp
     }
 
-    async function handleSubmit(){
+    async function handleSubmit(e){
         const patientInfo = document.getElementById("PatientDiv").getElementsByClassName("mb-3")
         const patientData = extractFromForm(patientInfo)
         var rows = []
@@ -79,9 +79,6 @@ function Adder (){
         )
         .then((res) => 
         {
-            setPatientForm(RecordFields.patient)
-            setHelpRequestForms(initialReqBox)
-            setSubmittedFlag(null)
             console.log(res)
             window.location.reload()
         })
@@ -96,6 +93,7 @@ function Adder (){
                 </div>
             </div>
             <Stack gap={4}>
+                <Form onSubmit={handleSubmit}>
                 <div style={{"borderStyle": "solid", "padding": "15px" }} >
                     <div class="d-flex justify-content-center"><h3>Patient Details</h3></div>
                     <div id="PatientDiv">
@@ -110,8 +108,9 @@ function Adder (){
                         helpRequestForms.length > 1 &&
                         <Button variant="secondary" onClick={removeReq}>Remove Request</Button>
                     }
-                    <Button variant="primary" size="lg" onClick={handleSubmit}>Submit</Button>
+                    <Button variant="primary" size="lg" type="Submit">Submit</Button>
                 </Stack>
+                </Form>
             </Stack>
         </Container>
     )

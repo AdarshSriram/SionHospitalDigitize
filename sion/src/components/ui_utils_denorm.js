@@ -1,10 +1,18 @@
-import {InputFieldsRaw, FilterFieldsRaw} from './type_utils_denorm'
+import {InputFieldsRaw, FilterFieldsRaw, RequiredFieldsRaw} from './type_utils_denorm'
 import {PrettyColumnMap} from './type_utils'
 import {Form, Col, Row} from 'react-bootstrap'
 
 
 function makeFieldInputSimple(box_id){
     const tag = PrettyColumnMap[box_id]
+    if (RequiredFieldsRaw.patient.includes(box_id) || RequiredFieldsRaw.help.includes(box_id)){
+        return (
+            <Form.Group className="mb-3" controlId={box_id}>
+            <Form.Label>{tag}</Form.Label>
+            <Form.Control required placeholder={tag} />
+            </Form.Group>
+        )
+    }
     return (
         <Form.Group className="mb-3" controlId={box_id}>
         <Form.Label>{tag}</Form.Label>

@@ -19,6 +19,11 @@
         "addPatient": {
           "deploymentBucketName": "amplify-amplify82ecda673f464-staging-162553-deployment",
           "s3Key": "amplify-builds/addPatient-68746c4b7061502b6456-build.zip"
+        },
+        "trustUpdateEmail": {
+          "sesEmail": "adarshsriram10@gmail.com",
+          "deploymentBucketName": "amplify-amplify82ecda673f464-staging-162553-deployment",
+          "s3Key": "amplify-builds/trustUpdateEmail-43555a4b3847706e4c42-build.zip"
         }
       }
     }

@@ -11,7 +11,7 @@ import {
 import PatientFinder from './components/PatientFinder'
 import Finder from './components/Finder'
 import Adder from './components/Adder'
-import PatientAdd from './components/PatientAdd'
+import Import from './components/Import'
 import { withAuthenticator } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -25,7 +25,7 @@ function App({ signOut, user }) {
   const [finderFlag, setFinderFlag] = useState(false);
   const [addFlag, setAddFlag] = useState(false);
   const [homeFlag, setHomeFlag] = useState(true);
-  const [linkFlag, setLinkFlag] = useState(false);
+  const [importFlag, setImportFlag] = useState(false);
 
   const SignOutButton = <Button variant = 'outline-dark' size = 'sm' onClick={signOut}>Sign out</Button>
 
@@ -46,6 +46,11 @@ function App({ signOut, user }) {
             <Row>
             <Button variant="outline-primary" size="lg" onClick={() => {setFinderFlag(true);setHomeFlag(false);}}>Find Records</Button>
             </Row>
+
+            <Row>
+            <Button variant="outline-primary" size="lg" onClick={() => {setImportFlag(true);setHomeFlag(false);}}>Import from Spreadsheet</Button>
+            </Row>
+
           </Stack>
 
         </Stack>
@@ -81,6 +86,17 @@ function App({ signOut, user }) {
         </Container>
       )
     }
+
+    if (importFlag){
+      return (
+        <Container fluid>
+        {SignOutButton}
+        <Button variant = 'secondary'  size = 'sm' onClick={() => { setAddFlag(false);setHomeFlag(true);}}>Home</Button>
+        <Import/>
+        </Container>
+      )
+    }
+
   }
 }
 

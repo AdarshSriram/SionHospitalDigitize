@@ -23,3 +23,21 @@ export const FilterFieldsRaw = [
     ['help_type', 'department', 'unit', 'opd', 'cdo_name','trust_name', 'cheque_no', 'help_given']
 ]
 
+
+function makeSchema(){
+    var schema = {}
+    for (var key of InputFieldsRaw.patient){
+        var tmp = {}
+        tmp.prop = key
+        schema[key] = tmp
+    }
+    for (key of InputFieldsRaw.help){
+        tmp = {}
+        tmp.prop = key
+        schema[key] = tmp
+    }
+    schema["id"] = {prop:"id"}
+    return schema
+}
+
+export const Schema = makeSchema()
