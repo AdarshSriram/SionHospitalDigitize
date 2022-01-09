@@ -3,35 +3,29 @@ import {PrettyColumnMap} from './type_utils'
 import {Form, Col, Row} from 'react-bootstrap'
 
 
-function makeFieldInputSimple(box_id){
+function makeFieldInputSimple(box_id, errs){
     const tag = PrettyColumnMap[box_id]
-    if (RequiredFieldsRaw.patient.includes(box_id) || RequiredFieldsRaw.help.includes(box_id)){
-        return (
-            <Form.Group className="mb-3" controlId={box_id}>
-            <Form.Label>{tag}</Form.Label>
-            <Form.Control required placeholder={tag} />
-            </Form.Group>
-        )
-    }
     return (
+        <>
         <Form.Group className="mb-3" controlId={box_id}>
-        <Form.Label>{tag}</Form.Label>
-        <Form.Control placeholder={tag} />
+            <Form.Label>{(errs[box_id] !== undefined) ? tag + " (" + errs[box_id] + ")": tag}</Form.Label>
+            <Form.Control placeholder={tag} />
+            <h5>{errs.box_id}</h5>
         </Form.Group>
+        </>
     )
 }
 
-function newRecordFields(){
+export function newRecordFields(errs={}){
     var res = {}
     var patientfields = []
     var helpfields = []
     for (const field of InputFieldsRaw.patient){
-        patientfields.push(makeFieldInputSimple(field))
+        patientfields.push(makeFieldInputSimple(field, errs))
     }
     for (const helpField of InputFieldsRaw.help){
-        helpfields.push(makeFieldInputSimple(helpField))
+        helpfields.push(makeFieldInputSimple(helpField, errs))
     }
-
     res["patient"] = patientfields
     res["help"] = helpfields
     return res
