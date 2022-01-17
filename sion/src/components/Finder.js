@@ -19,7 +19,18 @@ function Finder (){
  
 
     function downloadCSV(){
-
+        var csvData = []
+        for (var k = 0;k<tableData["raw"].length;k++){
+            const record = tableData["raw"][k]
+            const donos = [...record["donations"]]
+            delete record["donations"]
+            for (var dono of donos){
+                dono = {...dono}
+                delete dono["id"]
+                const newrow = {...record, ...dono}
+                csvData.push(newrow)
+            }
+        }
         const options = { 
         fieldSeparator: ',',
         filename: "PatientRecordQueryResult",
@@ -27,13 +38,12 @@ function Finder (){
         decimalSeparator: '.',
         showLabels: true, 
         showTitle: true,
-        title: 'Patient Record Query Result',
         useTextFile: false,
         useBom: true,
         useKeysAsHeaders: true,
         };
         const csvExporter = new ExportToCsv(options);
-        csvExporter.generateCsv(tableData["raw"]);
+        csvExporter.generateCsv(csvData);
     }
 
     function handleEdit(record){
@@ -81,7 +91,7 @@ function Finder (){
             const row = Object.entries(records[i])
                 .filter((tpl)=> tpl[0] !== "id" && goodKeys.includes(PrettyColumnMap[tpl[0]]))
                 .map((tpl)=> <td rowspan={numDonos}>{tpl[1]}</td>)
-                console.log(row)
+                
             
             const rawRecord = data['raw'][i]
           data["rows"].push(
@@ -106,7 +116,6 @@ function Finder (){
        .graphql({ query: queries.listPatientRecordHelpAssignments})
        .then((res)=> {
         const records = res["data"]["listPatientRecordHelpAssignments"]["items"]
-        console.log(records)
         generateTable(records)
        })
        .catch((err)=>console.log(err))
@@ -184,7 +193,7 @@ function Finder (){
 
             {tableData.raw && tableData.raw.length > 0 && 
             
-            <><Button onClick={downloadXlsx}>Download Spreadsheet</Button>
+            <><Button onClick={downloadCSV}>Download Spreadsheet</Button>
             <Table striped bordered hover id="QueryTable">
                 <caption class="tableTitle">Search Results</caption>
                 {tableData["headers"]}
