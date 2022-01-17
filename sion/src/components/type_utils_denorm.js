@@ -36,7 +36,7 @@ export const RequiredFieldsRaw = {
 
 export const FilterFieldsRaw = [
     ['name', 'age', 'contact', 'identity_proof', 'de_by', 'indoor_no','card_no'], 
-    ['help_type', 'department', 'unit', 'opd', 'cdo_name', 'cheque_no', 'help_given']
+    ['referred_for', 'department', 'unit', 'opd', 'cdo_name', 'trust_name', 'help_given']
 ]
 
 export const TypeSorted = {

@@ -8,6 +8,8 @@ import {TableCols} from './type_utils_denorm'
 import {CheckBoxInit} from './ui_utils_denorm'
 import { deletePatientRecordHelpAssignment } from "../graphql/mutations";
 import Adder from './Adder'
+import TableToExcel from "@linways/table-to-excel";
+
 
 function Finder (){
 
@@ -17,6 +19,7 @@ function Finder (){
  
 
     function downloadCSV(){
+
         const options = { 
         fieldSeparator: ',',
         filename: "PatientRecordQueryResult",
@@ -45,7 +48,7 @@ function Finder (){
             tableData["rows"].splice(idx, 1)
             var recordDelete = {}
             recordDelete["id"] = id
-            recordDelete["_version"] = record["_version"]
+            recordDelete["_version"] = record["_version"]-1
             console.log(recordDelete)
             API
             .graphql({ query: deletePatientRecordHelpAssignment, variables: {input: recordDelete}})
@@ -85,6 +88,7 @@ function Finder (){
             <tr>
                 <td rowspan={numDonos}>
                 <Button variant = "secondary" size="sm" onClick={()=>handleEdit(rawRecord)}>Edit</Button>
+                <Button variant = "secondary" size="sm" onClick={()=>handleDelete(rawRecord, i)}>Delete</Button>
                 </td>
                 <td rowspan={numDonos}>{i+1}</td>
                 {row}
@@ -109,7 +113,7 @@ function Finder (){
       }
 
 
-      function handleFilter(){
+      function handleFilter(){ 
           const filterFieldList = [...document.getElementsByTagName("input")]
           .filter((el)=> el.type === "checkbox" && el.checked)
           .map((el)=>el.id)
@@ -123,20 +127,37 @@ function Finder (){
               const val = document.getElementById(key+"_input").value
               var tmp = {}
               var tmpVal = {}
-              tmpVal["eq"] = val
-              tmp[key] = tmpVal
-              queryFilter.push(tmp)
+              if (key !=="trust_name"){
+                tmpVal["eq"] = val
+                tmp[key] = tmpVal
+                queryFilter.push(tmp)
+              }
           }
           const filter = {and  : queryFilter};
           console.log(queryFilter)
           API
           .graphql({ query: queries.listPatientRecordHelpAssignments, variables: { filter: filter}})
           .then((res)=>{
-            const records = res["data"]["listPatientRecordHelpAssignments"]["items"]
+            var records = res["data"]["listPatientRecordHelpAssignments"]["items"]
+            if (filterFieldList.includes("trust_name")){
+                console.log(records)
+                const trust = document.getElementById("trust_name_input").value
+                records = records.filter((rec)=>rec["donations"].some(el=>Object.values(el).includes(trust)))
+            }
             generateTable(records)
           })
           .catch((err)=> console.log(err))
     }
+
+    function downloadXlsx(){
+        TableToExcel.convert(document.getElementById("QueryTable"), {
+            name: "test.xlsx",
+            sheet: {
+              name: "Sheet 1"
+            }
+          });
+    }
+
     return (
         <Container fluid>
             {editRecord !== undefined && Object.keys(editRecord).length > 0 ? <Adder {...editRecord}/> : 
@@ -163,8 +184,8 @@ function Finder (){
 
             {tableData.raw && tableData.raw.length > 0 && 
             
-            <><Button onClick={downloadCSV}>Download Spreadsheet</Button>
-            <Table striped bordered hover>
+            <><Button onClick={downloadXlsx}>Download Spreadsheet</Button>
+            <Table striped bordered hover id="QueryTable">
                 <caption class="tableTitle">Search Results</caption>
                 {tableData["headers"]}
                 <tbody>
