@@ -3,31 +3,57 @@ import {PrettyColumnMap} from './type_utils'
 import {Form, Col, Row} from 'react-bootstrap'
 
 
-function makeFieldInputSimple(box_id, errs){
+function makeFieldInputSimple(box_id, errs, value){
     const tag = PrettyColumnMap[box_id]
     return (
         <>
         <Form.Group className="mb-3" controlId={box_id}>
             <Form.Label>{(errs[box_id] !== undefined) ? tag + " (" + errs[box_id] + ")": tag}</Form.Label>
-            <Form.Control placeholder={tag} />
+            <Form.Control placeholder={tag} defaultValue={value}/>
             <h5>{errs.box_id}</h5>
         </Form.Group>
         </>
     )
 }
 
-export function newRecordFields(errs={}){
+export function initDonations(initValues){
+    var donationfields = []
+    for (const donField of InputFieldsRaw.donations){
+        donationfields.push(makeFieldInputSimple(donField, {}, initValues[donField]))
+    }
+    return donationfields
+}
+
+export function newRecordFields(errs={}, initValues={}){
     var res = {}
     var patientfields = []
     var helpfields = []
+    var donationfields = []
+    var value;
     for (const field of InputFieldsRaw.patient){
-        patientfields.push(makeFieldInputSimple(field, errs))
+        if (initValues[field] !== null || initValues[field]!==undefined){
+            value = initValues[field]
+        }
+        patientfields.push(makeFieldInputSimple(field, errs, value))
+        value = null
     }
     for (const helpField of InputFieldsRaw.help){
-        helpfields.push(makeFieldInputSimple(helpField, errs))
+        if (initValues[helpField] !== null || initValues[helpField]!==undefined){
+            value = initValues[helpField]
+        }
+        helpfields.push(makeFieldInputSimple(helpField, errs, value))
+        value = null
+    }
+    for (const donField of InputFieldsRaw.donations){
+        if (initValues[donField] !== null || initValues[donField]!==undefined){
+            value = initValues[donField]
+        }
+        donationfields.push(makeFieldInputSimple(donField, errs, value))
+        value = null
     }
     res["patient"] = patientfields
     res["help"] = helpfields
+    res["donation"] = donationfields
     return res
 }
 

@@ -1,39 +1,92 @@
-import { useState } from "react";
-import {createPatientRecordHelpAssignment} from '../graphql/mutations';
-import { API, graphqlOperation } from 'aws-amplify';
-import {RecordFields, newRecordFields} from './ui_utils_denorm'
+import { useState, useEffect, useRef } from "react";
+import ReactDOMServer from 'react-dom/server';
+import {createPatientRecordHelpAssignment, updatePatientRecordHelpAssignment} from '../graphql/mutations';
+import { API } from 'aws-amplify';
+import {RecordFields, newRecordFields, initDonations} from './ui_utils_denorm'
 import {Form, Button, Container, Stack, Row} from 'react-bootstrap'
-import {validatePatient, validateHelp} from './type_utils_denorm'
+import {validatePatient, validateHelp, InputFieldsRaw, TypeSorted} from './type_utils_denorm'
+
+export function useFirstRender() {
+    const firstRender = useRef(true);
+  
+    useEffect(() => {
+      firstRender.current = false;
+    }, []);
+  
+    return firstRender.current;
+  }
+
+function Adder (updateInitRecord){
+
+    const hasInit = updateInitRecord !== undefined && Object.keys(updateInitRecord).length >0 
+    var InitForms = {patient: RecordFields.patient, help: []}
+    const [initFlag, setInitFlag] = useState(hasInit)
+    var InitDonoMap = {}
 
 
-function Adder (){
+    if (initFlag){
+    console.log(initFlag)
+    var forms = newRecordFields({}, updateInitRecord)
+    InitForms.patient = forms.patient
+    var donationForms = []
+    for (var k = 0; k<updateInitRecord["donations"].length;k++){
+        const donoForm = 
+            <div className="bg-light" style={{"border-style": "dotted", "padding": "15px" }}>
+                                <div class="d-flex justify-content-center"><h4>Current Donation {k+1}</h4></div>
+                                <div id = {"Help"+0+"Dono"+k}>
+                                    {initDonations(updateInitRecord["donations"][k])}
+                                </div>
+                            </div>
 
-    const initialReqBox = [
-        <div className="bg-light" style={{"borderStyle": "dotted", "padding": "15px" }}>
-                <div class="d-flex justify-content-center"><h4>Request 1</h4></div>
+        donationForms.push(donoForm)
+    }
+    InitDonoMap[0] = donationForms
 
-                <div id = {"Help0"}>
-                            {RecordFields['help']}
+    InitForms.help = 
+    [
+        <div className="bg-light" style={{"border-style": "dotted", "padding": "15px" }}>
+            <div id={"Help"+0+"div"}>
+                <div class="d-flex justify-content-center" ><h4>Request 1</h4></div>
+
+                <div id = {"Help"+0}>
+                    {RecordFields['help']}
                 </div>
             </div>
+            {donationForms}
+            <Button variant="secondary" onClick={()=>{addDonation(0)}}>Add Donation</Button>
+            <Button variant="secondary" onClick={()=>{removeDonation(0)}}>Remove Current Donation 1</Button>
+        </div>
+    
     ]
+    setInitFlag(false)
+    }
+
+
+
     const AddHelpButton = <Button variant="secondary" onClick={addNewReq}>Add Help Request</Button>
 
     const [submittedFlag, setSubmittedFlag] = useState(null)
-    const [helpRequestForms, setHelpRequestForms] = useState(initialReqBox)
-    const [patientForm, setPatientForm] = useState(RecordFields.patient)
+    const [helpRequestForms, setHelpRequestForms] = useState(InitForms.help)
+    const [patientForm, setPatientForm] = useState(InitForms.patient)
+    const [helpDonationMap, setHelpDonationMap] = useState(InitDonoMap)
+    const [isEdit, setIsEdit] = useState(hasInit)
+
+    
 
     function addNewReq(){        
         setHelpRequestForms(
             helpRequestForms.concat(
                 [
                     <div className="bg-light" style={{"border-style": "dotted", "padding": "15px" }}>
-                        <div class="d-flex justify-content-center"><h4>Request {helpRequestForms.length+1}</h4></div>
+                        <div id={"Help"+helpRequestForms.length+"div"}>
+                            <div class="d-flex justify-content-center" ><h4>Request {helpRequestForms.length+1}</h4></div>
 
-                        <div id = {"Help"+helpRequestForms.length}>
-                            {RecordFields['help']}
+                            <div id = {"Help"+helpRequestForms.length}>
+                                {RecordFields['help']}
+                            </div>
                         </div>
-
+                        <Button variant="secondary" onClick={()=>{addDonation(helpRequestForms.length)}}>Add Donation</Button>
+                        <Button variant="secondary" onClick={()=>{removeDonation(helpRequestForms.length)}}>Remove Donation </Button>
                     </div>
                 
                 ]
@@ -41,25 +94,60 @@ function Adder (){
         )
     }
 
+    function addDonation(helpId){
+        var Donos = helpDonationMap[helpId]
+        var numDonos = Donos === undefined ? 0 :  Donos.length
+        const newDonation = <div className="bg-light" id ={"Dono"+numDonos+"Container"} style={{"border-style": "dotted", "padding": "15px" }}>
+                                <div class="d-flex justify-content-center"><h4>Donation {numDonos+1}</h4></div>
+                                <div id = {"Help"+helpId+"Dono"+numDonos}>
+                                    {RecordFields['donation']}
+                                </div>
+                            </div>
+        if (numDonos >0){
+            helpDonationMap[helpId].push(newDonation)
+        }
+        else{
+            helpDonationMap[helpId] = [newDonation]
+        }
+        setHelpDonationMap(helpDonationMap)
+        const htmlString = ReactDOMServer.renderToStaticMarkup(newDonation)
+        var helpDiv = document.getElementById("Help"+helpId+"div")
+        helpDiv.insertAdjacentHTML("beforeend", htmlString)
+    }
+
+    function removeDonation(helpId){
+        var tmp = {...helpDonationMap}
+        const donoidx = helpDonationMap[helpId].length-1
+        tmp[helpId].pop()
+        setHelpDonationMap(tmp)
+        var helpDiv = document.getElementById("Dono"+donoidx+"Container")
+        // helpDiv.removeChild(helpDiv.lastChild);
+        helpDiv.remove()
+    }
+
     function removeReq(){
         if (helpRequestForms.length >1){
             setHelpRequestForms(helpRequestForms.slice(1))
         }
     }
-    function extractFromForm(divList){
+    function extractFromForm(divList, help = false){
         var tmp = {}
         for (const fieldDiv of divList){
             const inputBox = fieldDiv.getElementsByTagName("input")
-            const val = inputBox[0].value
+            var val = inputBox[0].value
             const fieldName = inputBox[0].id
-            tmp[fieldName] = val
+            if (!help || (help && !InputFieldsRaw.donations.includes(fieldName)) || fieldName !=="donations"){
+                val = !TypeSorted.string.includes(fieldName) ? parseInt(val) : val
+                tmp[fieldName] = val
+            }
         }
         return tmp
     }
 
     async function handleSubmit(){
         const patientInfo = document.getElementById("PatientDiv").getElementsByClassName("mb-3")
-        const patientData = extractFromForm(patientInfo)
+        var patientData = extractFromForm(patientInfo)
+        if (isEdit) {patientData["id"] = updateInitRecord["id"]; patientData["_version"] = updateInitRecord["_version"]}
         const patientValidation = validatePatient(patientData)
         var patientGood = true;
         if (Object.keys(patientValidation).length > 0){
@@ -73,33 +161,42 @@ function Adder (){
             const helpForm = document.getElementById("Help"+i).getElementsByClassName("mb-3")
             const helpData = extractFromForm(helpForm)
             const helpValidation = validateHelp(helpData)
-            if (Object.keys(helpValidation).length > 0){
-                console.log(helpValidation)
-                allHelpsGood = false
-                const newForm_i = newRecordFields(helpValidation).help
-                TempHelpForms[i] = 
-                <div className="bg-light" style={{"border-style": "dotted", "padding": "15px" }}>
-                    <div class="d-flex justify-content-center"><h4>Request {i+1}</h4></div>
-                    <div id = {"Help"+i}>{newForm_i}</div>
-                </div>
+            // if (Object.keys(helpValidation).length > 0){
+            //     console.log(helpValidation)
+            //     allHelpsGood = false
+            //     const newForm_i = newRecordFields(helpValidation).help
+            //     TempHelpForms[i] = 
+            //     <div className="bg-light" style={{"border-style": "dotted", "padding": "15px" }}>
+            //         <div class="d-flex justify-content-center"><h4>Request {i+1}</h4></div>
+            //         <div id = {"Help"+i}>{newForm_i}</div>
+            //     </div>
+            // }
+            var donationObjs = []
+            for (var j=0;j< helpDonationMap[i].length;j++){
+                const donoForm = document.getElementById("Help"+i+"Dono"+j).getElementsByClassName("mb-3")
+                var donoData = extractFromForm(donoForm)
+                donoData["id"] = j
+                donationObjs.push(donoData)
             }
+            helpData["donations"] = donationObjs
             const finalRow = {
                 ...patientData,
                 ...helpData
             }
             rows.push(finalRow)
         }
-        if (!allHelpsGood){
-            setHelpRequestForms(TempHelpForms)
-        }
-        if (!allHelpsGood || !patientGood){
-            return
-        }
+        // if (!allHelpsGood){
+        //     setHelpRequestForms(TempHelpForms)
+        // }
+        // if (!allHelpsGood || !patientGood){
+        //     return
+        // }
         console.log(rows)
+        const mutationChoice = isEdit ? updatePatientRecordHelpAssignment : createPatientRecordHelpAssignment
         Promise
         .all(
             rows.map((rowData) => API
-            .graphql({ query: createPatientRecordHelpAssignment, variables: {input: rowData}})
+            .graphql({ query: mutationChoice, variables: {input: rowData}})
             )
         )
         .then((res) => 

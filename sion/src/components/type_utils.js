@@ -37,7 +37,13 @@ export const PrettyColumnMap = {
     diagnosis: "Diagnosis",
     patient_contribution: "Patient contribution",
     pending_help: "Help given",
-    help_given: "Help given"
+    help_given: "Help given",
+    identity_proof: "Identity proof",
+    referred_for: "Referred for",
+    total_cost: "Total cost",
+    donations:"Donations",
+    patient_receipt_no: "Patient receipt no.",
+    donation_receipt_no: "Donation receipt no."
 }
 
   export const RecordFieldNames = {

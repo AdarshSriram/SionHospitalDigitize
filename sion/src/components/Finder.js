@@ -4,14 +4,16 @@ import { API } from 'aws-amplify';
 import { ExportToCsv } from 'export-to-csv';
 import {Container, Form, Stack, Button, Table, Row, Col} from 'react-bootstrap'
 import {PrettyColumnMap} from './type_utils'
-import {FilterFieldsRaw} from './type_utils_denorm'
+import {TableCols} from './type_utils_denorm'
 import {CheckBoxInit} from './ui_utils_denorm'
+import { deletePatientRecordHelpAssignment } from "../graphql/mutations";
+import Adder from './Adder'
 
 function Finder (){
 
-    const [tableData, setTableData] = useState({})
+    const [tableData, setTableData] = useState([])
     const [filterForm, setFilterForm] = useState(CheckBoxInit())
-    const [submitReady, setSubmitReady] = useState(false)
+    const [editRecord, setEditRecord] = useState({})
  
 
     function downloadCSV(){
@@ -31,30 +33,63 @@ function Finder (){
         csvExporter.generateCsv(tableData["raw"]);
     }
 
+    function handleEdit(record){
+        console.log(record)
+        setEditRecord(record)
+    }
+
+    function handleDelete(record, idx){
+        if (tableData["raw"]){
+            const id = record["id"]
+            tableData["raw"].splice(idx, 1)
+            tableData["rows"].splice(idx, 1)
+            var recordDelete = {}
+            recordDelete["id"] = id
+            recordDelete["_version"] = record["_version"]
+            console.log(recordDelete)
+            API
+            .graphql({ query: deletePatientRecordHelpAssignment, variables: {input: recordDelete}})
+            .then((res)=>console.log(res))
+            .catch((res)=>console.log(res))
+        }
+        
+
+
+    }
+
     function generateTable(records){
         var data = {}
-        data["headers"] = []
         data["rows"] = []
         data["raw"] = records
-        if (records.length > 0 ){
-          for (var j=0; j< Object.keys(records[0]).length-3;j++) {
-              const col = Object.keys(records[0])[j]
-            data["headers"].push(
-            <th>
-                {PrettyColumnMap[col]}
-            </th>
-            )
-          }
-        }
-        data['headers'] = <tr>{data["headers"]}</tr> 
+        records = [...records]
+        const goodKeys = TableCols.raw.map((x)=>PrettyColumnMap[x]).filter((x)=>x !== undefined)
+        var headers = goodKeys.map(x=><th>{x}</th>)
+        data['headers'] = <tr>
+            <th>Edit/Delete Record</th>
+            {headers}
+            </tr> 
   
         for (var i=0; i<records.length;i++){
-            records[i].id = i
+            const donos = records[i]['donations']
+            const numDonos = donos.length
+            const donoNames = <td rowspan = {numDonos}>{donos.map(dono=><>{dono["trust_name"]}<br/></>)}</td>
+            const donoAmts = <td rowspan = {numDonos}>{donos.map(dono=><>{dono["donation_amount"]}<br/></>)}</td>
+            
+            const row = Object.entries(records[i])
+                .filter((tpl)=> tpl[0] !== "id" && goodKeys.includes(PrettyColumnMap[tpl[0]]))
+                .map((tpl)=> <td rowspan={numDonos}>{tpl[1]}</td>)
+                console.log(row)
+            
+            const rawRecord = data['raw'][i]
           data["rows"].push(
             <tr>
-              {Object.values(records[i]).map(
-                x => <td>{x}</td>
-              ).slice(0, 28)}
+                <td rowspan={numDonos}>
+                <Button variant = "secondary" size="sm" onClick={()=>handleEdit(rawRecord)}>Edit</Button>
+                </td>
+                <td rowspan={numDonos}>{i+1}</td>
+                {row}
+                {donoNames}
+                {donoAmts}
             </tr>
           )
         }
@@ -67,8 +102,10 @@ function Finder (){
        .graphql({ query: queries.listPatientRecordHelpAssignments})
        .then((res)=> {
         const records = res["data"]["listPatientRecordHelpAssignments"]["items"]
+        console.log(records)
         generateTable(records)
        })
+       .catch((err)=>console.log(err))
       }
 
 
@@ -100,9 +137,10 @@ function Finder (){
           })
           .catch((err)=> console.log(err))
     }
-
     return (
         <Container fluid>
+            {editRecord !== undefined && Object.keys(editRecord).length > 0 ? <Adder {...editRecord}/> : 
+            <>
             <div class="d-flex justify-content-center"><h2>Find Records</h2></div>
             <Stack gap={4}>
                 Select Field and Enter Filter Value
@@ -135,6 +173,7 @@ function Finder (){
             </Table>
             </>}
             </Stack>
+            </>}
         </Container>
     )
 }

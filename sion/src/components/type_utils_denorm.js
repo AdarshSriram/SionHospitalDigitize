@@ -1,32 +1,48 @@
 export const InputFieldsRaw = {
-        patient: ['fname', 'lname', 'age', 'contact', 'address', 'document_type', 'de_by', 'indoor_no', 'rf_rs_name',
-        'card_no', 'ward_no'],
+        patient: ['name', 'age', 'contact', 'address', 'identity_proof', 'card_no', 'de_by', 'indoor_no',
+        'ward_no', 'opd', 'unit', 'cdo_name', 'help_given'],
 
     help : [
-    'help_type','before_help_amt', 'help_remark', 'department', 'unit', 'opd', 'cdo_name', 'trust_name', 'diagnosis',
-    'patient_contribution', 'pbcf', 'cdo_or_trust', 'donation_amount', 'cheque_no', 'help_given', 'additional_comments'
+    'referred_for','department','total_cost', 'diagnosis','patient_contribution', "patient_receipt_no",
+    'help_remark'
+    ],
+    donations: [
+        'trust_name', 'donation_amount', "donation_receipt_no"
     ]
 }
 
 
+// export const RequiredFieldsRaw = {
+//     patient: ['name', 'age', 'identity_proof', 'de_by', 'indoor_no','card_no', 'ward_no'],
+
+//     help : [
+//         'referred_for', 'diagnosis'
+//         ],
+//     donations: [
+//         'trust_name', 'donation_amount', "donation_receipt_no"
+//     ]
+// }
+
 export const RequiredFieldsRaw = {
-    patient: ['fname', 'lname', 'age', 'document_type', 'de_by', 'indoor_no','card_no', 'ward_no'],
+    patient: [],
 
     help : [
-    'help_type','before_help_amt', 'department', 'unit', 'opd', 'cdo_name', 'trust_name', 'diagnosis',
-    'patient_contribution', 'pbcf', 'cdo_or_trust', 'donation_amount', 'help_given'
+        
+        ],
+    donations: [
+        
     ]
 }
 
 export const FilterFieldsRaw = [
-    ['fname', 'lname', 'age', 'contact', 'document_type', 'de_by', 'indoor_no','card_no'], 
-    ['help_type', 'department', 'unit', 'opd', 'cdo_name','trust_name', 'cheque_no', 'help_given']
+    ['name', 'age', 'contact', 'identity_proof', 'de_by', 'indoor_no','card_no'], 
+    ['help_type', 'department', 'unit', 'opd', 'cdo_name', 'cheque_no', 'help_given']
 ]
 
-const TypeSorted = {
-    "string" : ['fname', 'lname', 'address', 'document_type', 'de_by', 'rf_rs_name', 'ward_no',
-    'help_type', 'help_remark', 'department', 'unit', 'opd', 'cdo_name', 'trust_name', 'diagnosis',
-    'cdo_or_trust', 'cheque_no', 'additional_comments', "help_given"]
+export const TypeSorted = {
+    "string" : ['name', 'address', 'identity_proof', 'de_by',
+    'help_type', 'help_remark', 'department', 'unit', 'cdo_name', 'trust_name', 'diagnosis',
+    'additional_comments', "help_given", "referred_for"]
 }
 
 
@@ -92,3 +108,8 @@ export function validateHelp(info){
 }
 
 export const Schema = makeSchema()
+
+export const TableCols = {
+    raw: ['id','name', 'age', 'conact', 'help_given', 'referred_for', 'diagnosis', 
+    'cdo_name', 'total_cost', 'patient_contribution', "trust_name", "donation_amount"]
+}

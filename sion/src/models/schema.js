@@ -10,52 +10,10 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "fname": {
-                    "name": "fname",
+                "name": {
+                    "name": "name",
                     "isArray": false,
                     "type": "String",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "lname": {
-                    "name": "lname",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "document_type": {
-                    "name": "document_type",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "de_by": {
-                    "name": "de_by",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "indoor_no": {
-                    "name": "indoor_no",
-                    "isArray": false,
-                    "type": "Int",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "rf_rs_name": {
-                    "name": "rf_rs_name",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "card_no": {
-                    "name": "card_no",
-                    "isArray": false,
-                    "type": "Int",
                     "isRequired": true,
                     "attributes": []
                 },
@@ -80,25 +38,67 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
-                "ward_no": {
-                    "name": "ward_no",
+                "identity_proof": {
+                    "name": "identity_proof",
                     "isArray": false,
                     "type": "String",
                     "isRequired": true,
                     "attributes": []
                 },
-                "before_help_amt": {
-                    "name": "before_help_amt",
+                "card_no": {
+                    "name": "card_no",
                     "isArray": false,
                     "type": "Int",
                     "isRequired": true,
                     "attributes": []
                 },
-                "help_type": {
-                    "name": "help_type",
+                "diagnosis": {
+                    "name": "diagnosis",
                     "isArray": false,
                     "type": "String",
                     "isRequired": true,
+                    "attributes": []
+                },
+                "referred_for": {
+                    "name": "referred_for",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "total_cost": {
+                    "name": "total_cost",
+                    "isArray": false,
+                    "type": "Int",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "help_given": {
+                    "name": "help_given",
+                    "isArray": false,
+                    "type": "Boolean",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "de_by": {
+                    "name": "de_by",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "indoor_no": {
+                    "name": "indoor_no",
+                    "isArray": false,
+                    "type": "Int",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "ward_no": {
+                    "name": "ward_no",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
                     "attributes": []
                 },
                 "help_remark": {
@@ -112,90 +112,58 @@ export const schema = {
                     "name": "department",
                     "isArray": false,
                     "type": "String",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "diagnosis": {
-                    "name": "diagnosis",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": true,
+                    "isRequired": false,
                     "attributes": []
                 },
                 "unit": {
                     "name": "unit",
                     "isArray": false,
                     "type": "String",
-                    "isRequired": true,
+                    "isRequired": false,
                     "attributes": []
                 },
                 "opd": {
                     "name": "opd",
                     "isArray": false,
-                    "type": "String",
-                    "isRequired": true,
+                    "type": "Int",
+                    "isRequired": false,
                     "attributes": []
                 },
                 "cdo_name": {
                     "name": "cdo_name",
                     "isArray": false,
                     "type": "String",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "trust_name": {
-                    "name": "trust_name",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "patient_contribution": {
-                    "name": "patient_contribution",
-                    "isArray": false,
-                    "type": "Int",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "pbcf": {
-                    "name": "pbcf",
-                    "isArray": false,
-                    "type": "Int",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "cdo_or_trust": {
-                    "name": "cdo_or_trust",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "donation_amount": {
-                    "name": "donation_amount",
-                    "isArray": false,
-                    "type": "Int",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "cheque_no": {
-                    "name": "cheque_no",
-                    "isArray": false,
-                    "type": "String",
                     "isRequired": false,
-                    "attributes": []
-                },
-                "help_given": {
-                    "name": "help_given",
-                    "isArray": false,
-                    "type": "Boolean",
-                    "isRequired": true,
                     "attributes": []
                 },
                 "additional_comments": {
                     "name": "additional_comments",
                     "isArray": false,
                     "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "donations": {
+                    "name": "donations",
+                    "isArray": true,
+                    "type": {
+                        "nonModel": "Donation"
+                    },
+                    "isRequired": false,
+                    "attributes": [],
+                    "isArrayNullable": true
+                },
+                "patient_contribution": {
+                    "name": "patient_contribution",
+                    "isArray": false,
+                    "type": "Int",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "patient_receipt_no": {
+                    "name": "patient_receipt_no",
+                    "isArray": false,
+                    "type": "Int",
                     "isRequired": false,
                     "attributes": []
                 },
@@ -224,9 +192,12 @@ export const schema = {
                     "properties": {}
                 }
             ]
-        },
-        "Trust": {
-            "name": "Trust",
+        }
+    },
+    "enums": {},
+    "nonModels": {
+        "Donation": {
+            "name": "Donation",
             "fields": {
                 "id": {
                     "name": "id",
@@ -235,69 +206,29 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "name": {
-                    "name": "name",
+                "trust_name": {
+                    "name": "trust_name",
                     "isArray": false,
                     "type": "String",
                     "isRequired": true,
                     "attributes": []
                 },
-                "email": {
-                    "name": "email",
-                    "isArray": false,
-                    "type": "AWSEmail",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "phone": {
-                    "name": "phone",
+                "donation_amount": {
+                    "name": "donation_amount",
                     "isArray": false,
                     "type": "Int",
                     "isRequired": true,
                     "attributes": []
                 },
-                "contact_person": {
-                    "name": "contact_person",
+                "donation_receipt_no": {
+                    "name": "donation_receipt_no",
                     "isArray": false,
-                    "type": "String",
+                    "type": "Int",
                     "isRequired": false,
                     "attributes": []
-                },
-                "address": {
-                    "name": "address",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "createdAt": {
-                    "name": "createdAt",
-                    "isArray": false,
-                    "type": "AWSDateTime",
-                    "isRequired": false,
-                    "attributes": [],
-                    "isReadOnly": true
-                },
-                "updatedAt": {
-                    "name": "updatedAt",
-                    "isArray": false,
-                    "type": "AWSDateTime",
-                    "isRequired": false,
-                    "attributes": [],
-                    "isReadOnly": true
                 }
-            },
-            "syncable": true,
-            "pluralName": "Trusts",
-            "attributes": [
-                {
-                    "type": "model",
-                    "properties": {}
-                }
-            ]
+            }
         }
     },
-    "enums": {},
-    "nonModels": {},
-    "version": "fe95a7c964adf0e43e0a4ac5699863a9"
+    "version": "6827899f1f85a49040609ce2da1446b7"
 };

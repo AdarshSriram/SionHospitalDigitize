@@ -4,41 +4,33 @@ input AMPLIFY {
 
 type PatientRecordHelpAssignment @model {
   id: ID!
-  fname: String!
-  lname: String!
-  document_type: String!
-  de_by: String!
-  indoor_no: Int!
-  rf_rs_name: String
-  card_no: Int!
+  name: String!
   age: Int! 
   address: String
   contact: Int
-  ward_no: String!
-  before_help_amt: Int!
-  help_type: String!
-  help_remark: String
-  department: String!
+  identity_proof: String!
+  card_no: Int!
   diagnosis: String!
-  unit: String!
-  opd: String!
-  cdo_name: String!
-  trust_name: String!
-  patient_contribution: Int!
-  pbcf: Int!
-  cdo_or_trust: String!
-  donation_amount: Int!
-  cheque_no: String
+  referred_for: String!
+  total_cost: Int
   help_given: Boolean!
+  de_by: String
+  indoor_no: Int
+  ward_no: String
+  help_remark: String
+  department: String
+  unit: String
+  opd: Int
+  cdo_name: String
   additional_comments: String
+  donations: [Donation]
+  patient_contribution: Int
+  patient_receipt_no: Int
 }
 
-type Trust @model {
-  id: ID!
-  name: String!
-  email: AWSEmail! 
-  phone: Int!
-  contact_person: String
-  address: String
+type Donation {
+  trust_name: String!
+  donation_amount: Int!
+  donation_receipt_no: Int
 }
   
