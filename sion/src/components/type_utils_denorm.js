@@ -1,9 +1,9 @@
 export const InputFieldsRaw = {
-        patient: ['name', 'age', 'contact', 'address', 'identity_proof', 'card_no', 'de_by', 'indoor_no',
+        patient: ['name', 'age', 'contact', 'address', 'identity_proof', 'card_no', 'diagnosis','de_by', 'indoor_no',
         'ward_no', 'opd', 'unit', 'cdo_name', 'help_given'],
 
     help : [
-    'referred_for','department','total_cost', 'diagnosis','patient_contribution', "patient_receipt_no",
+    'referred_for','department','total_cost', 'patient_contribution', "patient_receipt_no",
     'help_remark'
     ],
     donations: [
@@ -24,13 +24,13 @@ export const InputFieldsRaw = {
 // }
 
 export const RequiredFieldsRaw = {
-    patient: [],
+    patient: ["name", "age", "identity_proof", "card_no", "diagnosis", "help_given"],
 
     help : [
         
         ],
     donations: [
-        
+        "trust_name"
     ]
 }
 
@@ -63,11 +63,11 @@ function makeSchema(){
 }
 
 function checkType(key, val){
-    if (!isNaN(val) && TypeSorted.string.includes(key)){
+    if (!isNaN(parseInt(val)) && TypeSorted.string.includes(key) && val.length > 0){
         return "Enter valid input"
     }
-    if (!TypeSorted.string.includes(key) && isNaN(val)){
-        return "Enter numerical value"
+    if (!TypeSorted.string.includes(key) && isNaN(parseInt(val)) && val.length > 0){
+        return "Number required"
     }
     if (key === "help_given" &&  !(val === "Y" || val === "N" || val === "y" || val === "n")){
         return "Enter Y/N"
@@ -79,7 +79,7 @@ export function validatePatient(patientInfo){
     var err = {}
     for (const key of InputFieldsRaw.patient){
         if (RequiredFieldsRaw.patient.includes(key) && patientInfo[key] === ""){
-            err[key] = "Required"
+            err[key] = "Required field"
         }
         else if (patientInfo[key] !== ""){
             const msg = checkType(key, patientInfo[key])
@@ -95,7 +95,23 @@ export function validateHelp(info){
     var err = {}
     for (const key of InputFieldsRaw.help){
         if (RequiredFieldsRaw.help.includes(key) && info[key] === ""){
-            err[key] = "Required"
+            err[key] = "Required field"
+        }
+        else if (info[key] !== ""){
+            const msg = checkType(key, info[key])
+            if (msg !== null){
+                err[key] = msg
+            }
+        }
+    }
+    return err
+}
+
+export function validateDono(info){
+    var err = {}
+    for (const key of InputFieldsRaw.donations){
+        if (RequiredFieldsRaw.donations.includes(key) && info[key] === ""){
+            err[key] = "Required field"
         }
         else if (info[key] !== ""){
             const msg = checkType(key, info[key])
@@ -110,6 +126,8 @@ export function validateHelp(info){
 export const Schema = makeSchema()
 
 export const TableCols = {
-    raw: ['id','name', 'age', 'conact', 'help_given', 'referred_for', 'diagnosis', 
-    'cdo_name', 'total_cost', 'patient_contribution', "trust_name", "donation_amount"]
+    raw: ['id','name', 'age', 'contact', 'address','department', 'unit', 'opd','help_given', 'referred_for', 'diagnosis', 
+    'cdo_name', 'total_cost', 'patient_contribution', "trust_name", "donation_amount",
+    
+]
 }

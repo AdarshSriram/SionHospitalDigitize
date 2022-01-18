@@ -25,7 +25,6 @@ export const onCreatePatientRecordHelpAssignment = /* GraphQL */ `
       cdo_name
       additional_comments
       donations {
-        id
         trust_name
         donation_amount
         donation_receipt_no
@@ -64,7 +63,6 @@ export const onUpdatePatientRecordHelpAssignment = /* GraphQL */ `
       cdo_name
       additional_comments
       donations {
-        id
         trust_name
         donation_amount
         donation_receipt_no
@@ -103,7 +101,6 @@ export const onDeletePatientRecordHelpAssignment = /* GraphQL */ `
       cdo_name
       additional_comments
       donations {
-        id
         trust_name
         donation_amount
         donation_receipt_no

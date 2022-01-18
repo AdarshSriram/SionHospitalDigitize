@@ -25,7 +25,6 @@ export const getPatientRecordHelpAssignment = /* GraphQL */ `
       cdo_name
       additional_comments
       donations {
-        id
         trust_name
         donation_amount
         donation_receipt_no
@@ -73,7 +72,6 @@ export const listPatientRecordHelpAssignments = /* GraphQL */ `
         cdo_name
         additional_comments
         donations {
-          id
           trust_name
           donation_amount
           donation_receipt_no
@@ -126,7 +124,6 @@ export const syncPatientRecordHelpAssignments = /* GraphQL */ `
         cdo_name
         additional_comments
         donations {
-          id
           trust_name
           donation_amount
           donation_receipt_no

@@ -75,8 +75,9 @@ function Finder (){
         data["rows"] = []
         data["raw"] = records
         records = [...records]
-        const goodKeys = TableCols.raw.map((x)=>PrettyColumnMap[x]).filter((x)=>x !== undefined)
-        var headers = goodKeys.map(x=><th>{x}</th>)
+        console.log(records)
+        const goodKeys = TableCols.raw.filter((x)=>PrettyColumnMap[x] !== undefined)
+        var headers = goodKeys.map(x=><th>{PrettyColumnMap[x]}</th>)
         data['headers'] = <tr>
             <th>Edit/Delete Record</th>
             {headers}
@@ -88,10 +89,10 @@ function Finder (){
             const donoNames = <td rowspan = {numDonos}>{donos.map(dono=><>{dono["trust_name"]}<br/></>)}</td>
             const donoAmts = <td rowspan = {numDonos}>{donos.map(dono=><>{dono["donation_amount"]}<br/></>)}</td>
             
-            const row = Object.entries(records[i])
-                .filter((tpl)=> tpl[0] !== "id" && goodKeys.includes(PrettyColumnMap[tpl[0]]))
-                .map((tpl)=> <td rowspan={numDonos}>{tpl[1]}</td>)
-                
+            // const row = Object.entries(records[i])
+            //     .filter((tpl)=> tpl[0] !== "id" && goodKeys.includes(tpl[0]))
+            //     .map((tpl)=> <td rowspan={numDonos}>{tpl[1]}</td>)
+            const row = goodKeys.filter(x=>x!=='id').map(k=><td rowspan={numDonos}>{records[i][k]}</td>)
             
             const rawRecord = data['raw'][i]
           data["rows"].push(

@@ -34,7 +34,7 @@ export const schema = {
                 "contact": {
                     "name": "contact",
                     "isArray": false,
-                    "type": "Int",
+                    "type": "Float",
                     "isRequired": false,
                     "attributes": []
                 },
@@ -63,7 +63,7 @@ export const schema = {
                     "name": "referred_for",
                     "isArray": false,
                     "type": "String",
-                    "isRequired": true,
+                    "isRequired": false,
                     "attributes": []
                 },
                 "total_cost": {
@@ -199,13 +199,6 @@ export const schema = {
         "Donation": {
             "name": "Donation",
             "fields": {
-                "id": {
-                    "name": "id",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": true,
-                    "attributes": []
-                },
                 "trust_name": {
                     "name": "trust_name",
                     "isArray": false,
@@ -217,7 +210,7 @@ export const schema = {
                     "name": "donation_amount",
                     "isArray": false,
                     "type": "Int",
-                    "isRequired": true,
+                    "isRequired": false,
                     "attributes": []
                 },
                 "donation_receipt_no": {
@@ -230,5 +223,5 @@ export const schema = {
             }
         }
     },
-    "version": "6827899f1f85a49040609ce2da1446b7"
+    "version": "115321d277452b29d50e860101cd359a"
 };

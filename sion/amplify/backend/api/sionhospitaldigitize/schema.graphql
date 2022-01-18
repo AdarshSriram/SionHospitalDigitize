@@ -7,11 +7,11 @@ type PatientRecordHelpAssignment @model {
   name: String!
   age: Int! 
   address: String
-  contact: Int
+  contact: Float
   identity_proof: String!
   card_no: Int!
   diagnosis: String!
-  referred_for: String!
+  referred_for: String
   total_cost: Int
   help_given: Boolean!
   de_by: String
@@ -30,7 +30,7 @@ type PatientRecordHelpAssignment @model {
 
 type Donation {
   trust_name: String!
-  donation_amount: Int!
+  donation_amount: Int
   donation_receipt_no: Int
 }
   

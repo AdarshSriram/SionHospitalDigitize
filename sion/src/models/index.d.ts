@@ -3,9 +3,8 @@ import { ModelInit, MutableModel, PersistentModelConstructor } from "@aws-amplif
 
 
 export declare class Donation {
-  readonly id: string;
   readonly trust_name: string;
-  readonly donation_amount: number;
+  readonly donation_amount?: number;
   readonly donation_receipt_no?: number;
   constructor(init: ModelInit<Donation>);
 }
@@ -23,7 +22,7 @@ export declare class PatientRecordHelpAssignment {
   readonly identity_proof: string;
   readonly card_no: number;
   readonly diagnosis: string;
-  readonly referred_for: string;
+  readonly referred_for?: string;
   readonly total_cost?: number;
   readonly help_given: boolean;
   readonly de_by?: string;

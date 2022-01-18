@@ -4,7 +4,8 @@ import {createPatientRecordHelpAssignment, updatePatientRecordHelpAssignment} fr
 import { API } from 'aws-amplify';
 import {RecordFields, newRecordFields, initDonations} from './ui_utils_denorm'
 import {Form, Button, Container, Stack, Row} from 'react-bootstrap'
-import {validatePatient, validateHelp, InputFieldsRaw, TypeSorted} from './type_utils_denorm'
+import {validatePatient, validateHelp, InputFieldsRaw, TypeSorted, validateDono} from './type_utils_denorm'
+import { PrettyColumnMap } from "./type_utils";
 
 export function useFirstRender() {
     const firstRender = useRef(true);
@@ -156,28 +157,47 @@ function Adder (updateInitRecord){
         }
         var rows = []
         var allHelpsGood = true;
-        var TempHelpForms = [...helpRequestForms]
+        var donoGood = true
         for (var i=0; i < helpRequestForms.length; i++){
             const helpForm = document.getElementById("Help"+i).getElementsByClassName("mb-3")
             const helpData = extractFromForm(helpForm)
             const helpValidation = validateHelp(helpData)
-            // if (Object.keys(helpValidation).length > 0){
-            //     console.log(helpValidation)
-            //     allHelpsGood = false
-            //     const newForm_i = newRecordFields(helpValidation).help
-            //     TempHelpForms[i] = 
-            //     <div className="bg-light" style={{"border-style": "dotted", "padding": "15px" }}>
-            //         <div class="d-flex justify-content-center"><h4>Request {i+1}</h4></div>
-            //         <div id = {"Help"+i}>{newForm_i}</div>
-            //     </div>
-            // }
-            var donationObjs = []
-            for (var j=0;j< helpDonationMap[i].length;j++){
-                const donoForm = document.getElementById("Help"+i+"Dono"+j).getElementsByClassName("mb-3")
-                var donoData = extractFromForm(donoForm)
-                donoData["id"] = j
-                donationObjs.push(donoData)
+            if (Object.keys(helpValidation).length > 0){
+                console.log(helpValidation)
+                allHelpsGood = false
+                const divList = [...helpForm]
+                const helpInputBoxes = divList.map(x=>[x.getElementsByTagName("input")[0], x.getElementsByTagName("label")[0]])
+                console.log(helpInputBoxes)
+                for (const [box, label] of helpInputBoxes){
+                    const fieldName = box.id
+                    if (Object.keys(helpValidation).includes(fieldName)){
+                        label.innerHTML = PrettyColumnMap[fieldName] + " (" + helpValidation[fieldName] + ")"
+                    }
+                }
             }
+            var donationObjs = []
+            if (helpDonationMap[i]){
+                for (var j=0;j< helpDonationMap[i].length;j++){
+                    const donoForm = document.getElementById("Help"+i+"Dono"+j).getElementsByClassName("mb-3")
+                    var donoData = extractFromForm(donoForm)
+                    const donoVal = validateDono(donoData)
+                    if (Object.keys(donoVal).length > 0){
+                        console.log(donoVal)
+                        donoGood = false
+                        var donoDivList = [...donoForm]
+                        const donoInputBoxes = donoDivList.map(x=>[x.getElementsByTagName("input")[0], x.getElementsByTagName("label")[0]])
+                        console.log(donoInputBoxes)
+                        for (const [box, label] of donoInputBoxes){
+                            const fieldName = box.id
+                            if (Object.keys(donoVal).includes(fieldName)){
+                                label.innerHTML = PrettyColumnMap[fieldName] + " (" + donoVal[fieldName] + ")"
+                            }
+                        }
+                    }
+                    donationObjs.push(donoData)
+                }
+            }
+            
             helpData["donations"] = donationObjs
             const finalRow = {
                 ...patientData,
@@ -185,12 +205,14 @@ function Adder (updateInitRecord){
             }
             rows.push(finalRow)
         }
-        // if (!allHelpsGood){
-        //     setHelpRequestForms(TempHelpForms)
-        // }
-        // if (!allHelpsGood || !patientGood){
-        //     return
-        // }
+        if (!allHelpsGood || !patientGood || !donoGood){
+            console.log(allHelpsGood, patientGood, donoGood)
+            alert("Please check form inputs again")
+            return
+        }
+        if (rows.length ===0){
+            rows.push({...patientData, donations: []})
+        }
         console.log(rows)
         const mutationChoice = isEdit ? updatePatientRecordHelpAssignment : createPatientRecordHelpAssignment
         Promise
