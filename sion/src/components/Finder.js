@@ -53,12 +53,14 @@ function Finder (){
 
     function handleDelete(record, idx){
         if (tableData["raw"]){
+            console.log("delet")
             const id = record["id"]
             tableData["raw"].splice(idx, 1)
             tableData["rows"].splice(idx, 1)
+            setTableData(tableData)
             var recordDelete = {}
             recordDelete["id"] = id
-            recordDelete["_version"] = record["_version"]-1
+            recordDelete["_version"] = record["_version"]
             console.log(recordDelete)
             API
             .graphql({ query: deletePatientRecordHelpAssignment, variables: {input: recordDelete}})
@@ -92,7 +94,7 @@ function Finder (){
             // const row = Object.entries(records[i])
             //     .filter((tpl)=> tpl[0] !== "id" && goodKeys.includes(tpl[0]))
             //     .map((tpl)=> <td rowspan={numDonos}>{tpl[1]}</td>)
-            const row = goodKeys.filter(x=>x!=='id').map(k=><td rowspan={numDonos}>{records[i][k]}</td>)
+            const row = goodKeys.filter(x=>!['id', 'trust_name', 'donation_amount'].includes(x)).map(k=><td rowspan={numDonos}>{records[i][k]}</td>)
             
             const rawRecord = data['raw'][i]
           data["rows"].push(
@@ -117,7 +119,7 @@ function Finder (){
        .graphql({ query: queries.listPatientRecordHelpAssignments})
        .then((res)=> {
         const records = res["data"]["listPatientRecordHelpAssignments"]["items"]
-        generateTable(records)
+        generateTable(records.filter((rec)=> !rec["_deleted"]))
        })
        .catch((err)=>console.log(err))
       }
@@ -154,6 +156,7 @@ function Finder (){
                 const trust = document.getElementById("trust_name_input").value
                 records = records.filter((rec)=>rec["donations"].some(el=>Object.values(el).includes(trust)))
             }
+            records = records.filter((rec)=> !rec["_deleted"])
             generateTable(records)
           })
           .catch((err)=> console.log(err))
