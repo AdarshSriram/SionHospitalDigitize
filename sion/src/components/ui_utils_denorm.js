@@ -5,10 +5,13 @@ import {Form, Col, Row} from 'react-bootstrap'
 
 function makeFieldInputSimple(box_id, errs, value){
     const tag = PrettyColumnMap[box_id]
+    const reqTag = RequiredFieldsRaw.patient.includes(box_id) ||
+                        RequiredFieldsRaw.donations.includes(box_id) ||
+                        RequiredFieldsRaw.help.includes(box_id) ? "*" : ""
     return (
         <>
         <Form.Group className="mb-3" controlId={box_id}>
-            <Form.Label>{(errs[box_id] !== undefined) ? tag + " (" + errs[box_id] + ")": tag}</Form.Label>
+            <Form.Label>{(errs[box_id] !== undefined) ? tag + " (" + errs[box_id] + ")": tag + reqTag}</Form.Label>
             <Form.Control placeholder={tag} defaultValue={value}/>
             <h5>{errs.box_id}</h5>
         </Form.Group>

@@ -1,6 +1,7 @@
 export const InputFieldsRaw = {
-        patient: ['name', 'age', 'contact', 'address', 'identity_proof', 'card_no', 'diagnosis','de_by', 'indoor_no',
-        'ward_no', 'opd', 'unit', 'cdo_name', 'help_given'],
+        patient: ['name', 'age', 'contact', 'address', 'identity_proof', 'card_no', 'departments',
+        'opd','diagnosis', 'indoor_no',
+        'ward_no', 'unit', 'cdo_name', 'de_by','help_given'],
 
     help : [
     'referred_for','department','total_cost', 'patient_contribution', "patient_receipt_no",
@@ -11,26 +12,14 @@ export const InputFieldsRaw = {
     ]
 }
 
-
-// export const RequiredFieldsRaw = {
-//     patient: ['name', 'age', 'identity_proof', 'de_by', 'indoor_no','card_no', 'ward_no'],
-
-//     help : [
-//         'referred_for', 'diagnosis'
-//         ],
-//     donations: [
-//         'trust_name', 'donation_amount', "donation_receipt_no"
-//     ]
-// }
-
 export const RequiredFieldsRaw = {
     patient: ["name", "age", "identity_proof", "card_no", "diagnosis", "help_given"],
 
     help : [
-        
+        "referred_for"
         ],
     donations: [
-        "trust_name"
+        "trust_name", "donation_amount"
     ]
 }
 
@@ -63,6 +52,9 @@ function makeSchema(){
 }
 
 function checkType(key, val){
+    if (key === 'address'){
+        return null
+    }
     if (!isNaN(parseInt(val)) && TypeSorted.string.includes(key) && val.length > 0){
         return "Enter valid input"
     }

@@ -50,7 +50,7 @@ function Adder (updateInitRecord){
                 <div class="d-flex justify-content-center" ><h4>Request 1</h4></div>
 
                 <div id = {"Help"+0}>
-                    {RecordFields['help']}
+                    {forms['help']}
                 </div>
             </div>
             {donationForms}
@@ -141,6 +141,9 @@ function Adder (updateInitRecord){
                 val = !TypeSorted.string.includes(fieldName) ? parseInt(val) : val
                 tmp[fieldName] = val
             }
+            if (fieldName === "help_given"){
+                tmp[fieldName] = val === "Y" || val === "y" ? true : false
+            }
         }
         return tmp
     }
@@ -154,6 +157,9 @@ function Adder (updateInitRecord){
         if (Object.keys(patientValidation).length > 0){
             patientGood = false
             setPatientForm(newRecordFields(patientValidation).patient)
+        }
+        else{
+            patientData["help_given"] =  patientData["help_given"] === "Y" || patientData["help_given"] === "y" ? true : false
         }
         var rows = []
         var allHelpsGood = true;
@@ -208,6 +214,7 @@ function Adder (updateInitRecord){
         if (!allHelpsGood || !patientGood || !donoGood){
             console.log(allHelpsGood, patientGood, donoGood)
             alert("Please check form inputs again")
+            document.body.scrollTop = document.documentElement.scrollTop = 0;
             return
         }
         if (rows.length ===0){
@@ -233,7 +240,7 @@ function Adder (updateInitRecord){
         <Container fluid>
             <div class="border">
                 <div class="d-flex justify-content-center">
-                    <h2>Patient Record Form</h2>
+                    <h2>Patient Record Form</h2>π
                 </div>
             </div>
             <Stack gap={4}>

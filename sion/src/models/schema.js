@@ -59,6 +59,13 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
+                "departments": {
+                    "name": "departments",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
                 "referred_for": {
                     "name": "referred_for",
                     "isArray": false,
@@ -223,5 +230,5 @@ export const schema = {
             }
         }
     },
-    "version": "115321d277452b29d50e860101cd359a"
+    "version": "c42087461b8ee41109a2688702c9acae"
 };

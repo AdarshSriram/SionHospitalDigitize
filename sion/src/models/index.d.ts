@@ -22,6 +22,7 @@ export declare class PatientRecordHelpAssignment {
   readonly identity_proof: string;
   readonly card_no: number;
   readonly diagnosis: string;
+  readonly departments?: string;
   readonly referred_for?: string;
   readonly total_cost?: number;
   readonly help_given: boolean;

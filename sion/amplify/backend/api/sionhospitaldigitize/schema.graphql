@@ -11,6 +11,7 @@ type PatientRecordHelpAssignment @model {
   identity_proof: String!
   card_no: Int!
   diagnosis: String!
+  departments: String
   referred_for: String
   total_cost: Int
   help_given: Boolean!

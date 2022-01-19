@@ -18,7 +18,7 @@ export const PrettyColumnMap = {
     date: "Date (DD/MM/YYYY)",
     help_remark: "Help Remark",
     de_by: 'DE By',
-    indoor_no: 'Indoor No.',
+    indoor_no: 'Indoor/Outdoor No.',
     age: 'Age',
     ward_no: 'Ward No.',
     before_help_amt: "Amount before help",
@@ -43,7 +43,8 @@ export const PrettyColumnMap = {
     total_cost: "Total cost",
     donations:"Donations",
     patient_receipt_no: "Patient receipt no.",
-    donation_receipt_no: "Donation receipt no."
+    donation_receipt_no: "Donation receipt no.",
+    departments: "Department(s)"
 }
 
   export const RecordFieldNames = {

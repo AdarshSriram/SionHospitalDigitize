@@ -53,19 +53,20 @@ function Finder (){
 
     function handleDelete(record, idx){
         if (tableData["raw"]){
-            console.log("delet")
-            const id = record["id"]
-            tableData["raw"].splice(idx, 1)
-            tableData["rows"].splice(idx, 1)
-            setTableData(tableData)
-            var recordDelete = {}
-            recordDelete["id"] = id
-            recordDelete["_version"] = record["_version"]
-            console.log(recordDelete)
-            API
-            .graphql({ query: deletePatientRecordHelpAssignment, variables: {input: recordDelete}})
-            .then((res)=>console.log(res))
-            .catch((res)=>console.log(res))
+            if (window.confirm("Are you sure you want to delete record?")){
+                const id = record["id"]
+                tableData["raw"].splice(idx, 1)
+                tableData["rows"].splice(idx, 1)
+                setTableData(tableData)
+                var recordDelete = {}
+                recordDelete["id"] = id
+                recordDelete["_version"] = record["_version"]
+                console.log(recordDelete)
+                API
+                .graphql({ query: deletePatientRecordHelpAssignment, variables: {input: recordDelete}})
+                .then((res)=>console.log(res))
+                .catch((res)=>console.log(res))
+            }
         }
         
 

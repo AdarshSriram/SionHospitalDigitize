@@ -12,6 +12,7 @@ export const onCreatePatientRecordHelpAssignment = /* GraphQL */ `
       identity_proof
       card_no
       diagnosis
+      departments
       referred_for
       total_cost
       help_given
@@ -50,6 +51,7 @@ export const onUpdatePatientRecordHelpAssignment = /* GraphQL */ `
       identity_proof
       card_no
       diagnosis
+      departments
       referred_for
       total_cost
       help_given
@@ -88,6 +90,7 @@ export const onDeletePatientRecordHelpAssignment = /* GraphQL */ `
       identity_proof
       card_no
       diagnosis
+      departments
       referred_for
       total_cost
       help_given
