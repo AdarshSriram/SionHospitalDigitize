@@ -141,9 +141,6 @@ function Adder (updateInitRecord){
                 val = !TypeSorted.string.includes(fieldName) ? parseInt(val) : val
                 tmp[fieldName] = val
             }
-            if (fieldName === "help_given"){
-                tmp[fieldName] = val === "Y" || val === "y" ? true : false
-            }
         }
         return tmp
     }
@@ -156,6 +153,8 @@ function Adder (updateInitRecord){
         var patientGood = true;
         if (Object.keys(patientValidation).length > 0){
             patientGood = false
+            console.log(patientValidation)
+            console.log(patientData)
             setPatientForm(newRecordFields(patientValidation).patient)
         }
         else{
@@ -212,7 +211,6 @@ function Adder (updateInitRecord){
             rows.push(finalRow)
         }
         if (!allHelpsGood || !patientGood || !donoGood){
-            console.log(allHelpsGood, patientGood, donoGood)
             alert("Please check form inputs again")
             document.body.scrollTop = document.documentElement.scrollTop = 0;
             return
