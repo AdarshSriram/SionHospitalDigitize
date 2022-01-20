@@ -52,7 +52,7 @@ function makeSchema(){
 }
 
 function checkType(key, val){
-    if (key === 'address'){
+    if (key === 'address'|| (key === "card_no" && val.length > 0)){
         return null
     }
     if (!isNaN(parseInt(val)) && TypeSorted.string.includes(key) && val.length > 0){

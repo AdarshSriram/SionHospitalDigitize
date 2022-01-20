@@ -91,10 +91,7 @@ function Finder (){
             const numDonos = donos.length
             const donoNames = <td rowspan = {numDonos}>{donos.map(dono=><>{dono["trust_name"]}<br/></>)}</td>
             const donoAmts = <td rowspan = {numDonos}>{donos.map(dono=><>{dono["donation_amount"]}<br/></>)}</td>
-            
-            // const row = Object.entries(records[i])
-            //     .filter((tpl)=> tpl[0] !== "id" && goodKeys.includes(tpl[0]))
-            //     .map((tpl)=> <td rowspan={numDonos}>{tpl[1]}</td>)
+            records[i]["help_given"] = records[i]["help_given"] ? "Y" : "N"
             const row = goodKeys.filter(x=>!['id', 'trust_name', 'donation_amount'].includes(x)).map(k=><td rowspan={numDonos}>{records[i][k]}</td>)
             
             const rawRecord = data['raw'][i]
