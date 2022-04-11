@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "paths": {
+    "/app": {
+      "name": "/app",
+      "lambdaFunction": "addPatient",
+      "permissions": {
+        "setting": "open"
+      }
+    }
+  }
+}

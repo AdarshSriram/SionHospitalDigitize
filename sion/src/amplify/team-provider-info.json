@@ -1,0 +1,31 @@
+{
+  "staging": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-amplify82ecda673f464-staging-162553-authRole",
+      "UnauthRoleArn": "arn:aws:iam::667674137115:role/amplify-amplify82ecda673f464-staging-162553-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::667674137115:role/amplify-amplify82ecda673f464-staging-162553-authRole",
+      "Region": "ap-south-1",
+      "DeploymentBucketName": "amplify-amplify82ecda673f464-staging-162553-deployment",
+      "UnauthRoleName": "amplify-amplify82ecda673f464-staging-162553-unauthRole",
+      "StackName": "amplify-amplify82ecda673f464-staging-162553",
+      "StackId": "arn:aws:cloudformation:ap-south-1:667674137115:stack/amplify-amplify82ecda673f464-staging-162553/54b36090-659f-11ec-8f29-024b686d78c4",
+      "AmplifyAppId": "d3jcn8npesv669"
+    },
+    "categories": {
+      "function": {
+        "addPatient": {
+          "deploymentBucketName": "amplify-amplify82ecda673f464-staging-162553-deployment",
+          "s3Key": "amplify-builds/addPatient-68746c4b7061502b6456-build.zip"
+        },
+        "trustUpdateEmail": {
+          "deploymentBucketName": "amplify-amplify82ecda673f464-staging-162553-deployment",
+          "s3Key": "amplify-builds/trustUpdateEmail-43555a4b3847706e4c42-build.zip",
+          "sesEmail": "adarshsriram10@gmail.com"
+        }
+      },
+      "auth": {
+        "sionhospitaldigitizef2ec37fe": {}
+      }
+    }
+  }
+}

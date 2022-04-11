@@ -1,0 +1,12 @@
+{
+  "AppSyncApiName": "sionhospitaldigitize",
+  "DynamoDBBillingMode": "PAY_PER_REQUEST",
+  "DynamoDBEnableServerSideEncryption": false,
+  "AuthCognitoUserPoolId": {
+    "Fn::GetAtt": [
+      "authsionhospitaldigitizef2ec37fe",
+      "Outputs.UserPoolId"
+    ]
+  },
+  "AuthModeLastUpdated": "2021-12-26T08:57:59.779Z"
+}
