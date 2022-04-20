@@ -52,7 +52,7 @@ function Finder (){
     }
 
     function handleDelete(record, idx){
-        if (tableData["raw"]){
+        // if (tableData["raw"]){
             if (window.confirm("Are you sure you want to delete record?")){
                 const id = record["id"]
                 tableData["raw"].splice(idx, 1)
@@ -67,7 +67,7 @@ function Finder (){
                 .then((res)=>console.log(res))
                 .catch((res)=>console.log(res))
             }
-        }
+        // }
         
 
 
@@ -89,26 +89,25 @@ function Finder (){
         for (var i=0; i<records.length;i++){
             const donos = records[i]['donations']
             const numDonos = donos.length
-            const donoNames = <td rowspan = {numDonos}>{donos.map(dono=><>{dono["trust_name"]}<br/></>)}</td>
-            const donoAmts = <td rowspan = {numDonos}>{donos.map(dono=><>{dono["donation_amount"]}<br/></>)}</td>
+            const donoNames = <td rowspan = {numDonos || 1}>{donos.map(dono=><>{dono["trust_name"]}<br/></>)}</td>
+            const donoAmts = <td rowspan = {numDonos || 1}>{donos.map(dono=><>{dono["donation_amount"]}<br/></>)}</td>
             records[i]["help_given"] = records[i]["help_given"] ? "Y" : "N"
-            const row = goodKeys.filter(x=>!['id', 'trust_name', 'donation_amount'].includes(x)).map(k=><td rowspan={numDonos}>{records[i][k] || ""}</td>)
+            const row = goodKeys.filter(x=>!['id', 'trust_name', 'donation_amount'].includes(x)).map(k=><td rowspan={numDonos || 1}>{records[i][k] } </td>)
             
             const rawRecord = data['raw'][i]
           data["rows"].push(
             <tr>
-                <td rowspan={numDonos}>
+                <td rowspan={numDonos || 1}>
                 <Button variant = "secondary" size="sm" onClick={()=>handleEdit(rawRecord)}>Edit</Button>
                 <Button variant = "secondary" size="sm" onClick={()=>handleDelete(rawRecord, i)}>Delete</Button>
                 </td>
-                <td rowspan={numDonos}>{i+1}</td>
+                <td rowspan={numDonos || 1}>{i+1}</td>
                 {row}
-                {donoNames}
-                {donoAmts}
+                {numDonos > 0 ? donoNames : <td></td> } 
+                {numDonos > 0 ? donoAmts : <td></td> }
             </tr>
           )
         }
-
         setTableData(data)
       }
 

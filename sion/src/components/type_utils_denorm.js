@@ -1,6 +1,6 @@
 export const InputFieldsRaw = {
-        patient: ['name', 'age', 'contact', 'address', 'identity_proof', 'card_no', 'departments',
-        'opd','diagnosis', 'indoor_no',
+        patient: ['name', 'age', 'gender', 'contact', 'address', 'city', 'district', 'state','identity_proof', 'card_no', 'departments',
+        'opd','diagnosis', 'indoor_no', 
         'ward_no', 'unit', 'cdo_name', 'de_by','help_given'],
 
     help : [
@@ -24,12 +24,12 @@ export const RequiredFieldsRaw = {
 }
 
 export const FilterFieldsRaw = [
-    ['name', 'age', 'contact', 'identity_proof', 'de_by', 'indoor_no','card_no'], 
+    ['name', 'age', 'gender', 'de_by', 'indoor_no', 'city', 'state', 'district'], 
     ['referred_for', 'department', 'unit', 'opd', 'cdo_name', 'trust_name', 'help_given']
 ]
 
 export const TypeSorted = {
-    "string" : ['name', 'address', 'identity_proof', 'de_by',
+    "string" : ['name', 'address', 'identity_proof', 'de_by', 'gender','city', 'state', 'district',
     'help_type', 'help_remark', 'department', 'unit', 'cdo_name', 'trust_name', 'diagnosis',
     'additional_comments', "help_given", "referred_for"]
 }
@@ -118,7 +118,7 @@ export function validateDono(info){
 export const Schema = makeSchema()
 
 export const TableCols = {
-    raw: ['id','name', 'age', 'contact', 'address','department', 'unit', 'opd','help_given', 'referred_for', 'diagnosis', 
+    raw: ['id','name', 'age', 'gender','contact', 'address','city', 'district','state','department', 'unit', 'opd','help_given', 'referred_for', 'diagnosis', 
     'cdo_name', 'total_cost', 'patient_contribution', "trust_name", "donation_amount",
     
 ]

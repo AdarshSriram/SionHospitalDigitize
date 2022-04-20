@@ -1,17 +1,16 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const onCreatePatientRecordHelpAssignment = /* GraphQL */ `
-  subscription OnCreatePatientRecordHelpAssignment {
-    onCreatePatientRecordHelpAssignment {
+export const createPatientRecordHelpAssignment = /* GraphQL */ `
+  mutation CreatePatientRecordHelpAssignment(
+    $input: CreatePatientRecordHelpAssignmentInput!
+    $condition: ModelPatientRecordHelpAssignmentConditionInput
+  ) {
+    createPatientRecordHelpAssignment(input: $input, condition: $condition) {
       id
       name
-      gender
       age
       address
-      city
-      district
-      state
       contact
       identity_proof
       card_no
@@ -44,17 +43,16 @@ export const onCreatePatientRecordHelpAssignment = /* GraphQL */ `
     }
   }
 `;
-export const onUpdatePatientRecordHelpAssignment = /* GraphQL */ `
-  subscription OnUpdatePatientRecordHelpAssignment {
-    onUpdatePatientRecordHelpAssignment {
+export const updatePatientRecordHelpAssignment = /* GraphQL */ `
+  mutation UpdatePatientRecordHelpAssignment(
+    $input: UpdatePatientRecordHelpAssignmentInput!
+    $condition: ModelPatientRecordHelpAssignmentConditionInput
+  ) {
+    updatePatientRecordHelpAssignment(input: $input, condition: $condition) {
       id
       name
-      gender
       age
       address
-      city
-      district
-      state
       contact
       identity_proof
       card_no
@@ -87,17 +85,16 @@ export const onUpdatePatientRecordHelpAssignment = /* GraphQL */ `
     }
   }
 `;
-export const onDeletePatientRecordHelpAssignment = /* GraphQL */ `
-  subscription OnDeletePatientRecordHelpAssignment {
-    onDeletePatientRecordHelpAssignment {
+export const deletePatientRecordHelpAssignment = /* GraphQL */ `
+  mutation DeletePatientRecordHelpAssignment(
+    $input: DeletePatientRecordHelpAssignmentInput!
+    $condition: ModelPatientRecordHelpAssignmentConditionInput
+  ) {
+    deletePatientRecordHelpAssignment(input: $input, condition: $condition) {
       id
       name
-      gender
       age
       address
-      city
-      district
-      state
       contact
       identity_proof
       card_no

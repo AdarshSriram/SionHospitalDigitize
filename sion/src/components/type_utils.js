@@ -1,5 +1,9 @@
 export const PrettyColumnMap = {
     id: "Sr. No.",
+    gender: "Gender",
+    city: "City",
+    district: "District",
+    state: "State",
     fname: "First Name",
     lname: "Last Name",
     name: 'Name',

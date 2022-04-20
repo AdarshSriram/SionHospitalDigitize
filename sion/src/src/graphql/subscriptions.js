@@ -6,12 +6,8 @@ export const onCreatePatientRecordHelpAssignment = /* GraphQL */ `
     onCreatePatientRecordHelpAssignment {
       id
       name
-      gender
       age
       address
-      city
-      district
-      state
       contact
       identity_proof
       card_no
@@ -49,12 +45,8 @@ export const onUpdatePatientRecordHelpAssignment = /* GraphQL */ `
     onUpdatePatientRecordHelpAssignment {
       id
       name
-      gender
       age
       address
-      city
-      district
-      state
       contact
       identity_proof
       card_no
@@ -92,12 +84,8 @@ export const onDeletePatientRecordHelpAssignment = /* GraphQL */ `
     onDeletePatientRecordHelpAssignment {
       id
       name
-      gender
       age
       address
-      city
-      district
-      state
       contact
       identity_proof
       card_no

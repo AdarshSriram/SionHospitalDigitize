@@ -6,12 +6,8 @@ export const getPatientRecordHelpAssignment = /* GraphQL */ `
     getPatientRecordHelpAssignment(id: $id) {
       id
       name
-      gender
       age
       address
-      city
-      district
-      state
       contact
       identity_proof
       card_no
@@ -58,12 +54,8 @@ export const listPatientRecordHelpAssignments = /* GraphQL */ `
       items {
         id
         name
-        gender
         age
         address
-        city
-        district
-        state
         contact
         identity_proof
         card_no
@@ -115,12 +107,8 @@ export const syncPatientRecordHelpAssignments = /* GraphQL */ `
       items {
         id
         name
-        gender
         age
         address
-        city
-        district
-        state
         contact
         identity_proof
         card_no

@@ -9,8 +9,12 @@ export const createPatientRecordHelpAssignment = /* GraphQL */ `
     createPatientRecordHelpAssignment(input: $input, condition: $condition) {
       id
       name
+      gender
       age
       address
+      city
+      district
+      state
       contact
       identity_proof
       card_no
@@ -51,8 +55,12 @@ export const updatePatientRecordHelpAssignment = /* GraphQL */ `
     updatePatientRecordHelpAssignment(input: $input, condition: $condition) {
       id
       name
+      gender
       age
       address
+      city
+      district
+      state
       contact
       identity_proof
       card_no
@@ -93,8 +101,12 @@ export const deletePatientRecordHelpAssignment = /* GraphQL */ `
     deletePatientRecordHelpAssignment(input: $input, condition: $condition) {
       id
       name
+      gender
       age
       address
+      city
+      district
+      state
       contact
       identity_proof
       card_no

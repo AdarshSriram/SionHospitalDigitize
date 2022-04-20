@@ -149,6 +149,7 @@ function Adder (updateInitRecord){
         const patientInfo = document.getElementById("PatientDiv").getElementsByClassName("mb-3")
         var patientData = extractFromForm(patientInfo)
         if (isEdit) {patientData["id"] = updateInitRecord["id"]; patientData["_version"] = updateInitRecord["_version"]}
+        // if (patientData["state"] === "Maharashtra" || patientData["state"] === "maharastra" || patientData["state"] === "MH") {patientData["is_maha"] = true}
         const patientValidation = validatePatient(patientData)
         var patientGood = true;
         if (Object.keys(patientValidation).length > 0){

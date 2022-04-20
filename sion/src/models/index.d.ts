@@ -16,8 +16,12 @@ type PatientRecordHelpAssignmentMetaData = {
 export declare class PatientRecordHelpAssignment {
   readonly id: string;
   readonly name: string;
+  readonly gender?: string;
   readonly age: number;
   readonly address?: string;
+  readonly city?: string;
+  readonly district?: string;
+  readonly state?: string;
   readonly contact?: number;
   readonly identity_proof: string;
   readonly card_no: number;

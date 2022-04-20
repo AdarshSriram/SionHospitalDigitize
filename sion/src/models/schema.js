@@ -17,6 +17,13 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
+                "gender": {
+                    "name": "gender",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
                 "age": {
                     "name": "age",
                     "isArray": false,
@@ -26,6 +33,27 @@ export const schema = {
                 },
                 "address": {
                     "name": "address",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "city": {
+                    "name": "city",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "district": {
+                    "name": "district",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "state": {
+                    "name": "state",
                     "isArray": false,
                     "type": "String",
                     "isRequired": false,
@@ -230,5 +258,5 @@ export const schema = {
             }
         }
     },
-    "version": "c42087461b8ee41109a2688702c9acae"
+    "version": "efce8e4099b9059194fd085d8948a9a3"
 };

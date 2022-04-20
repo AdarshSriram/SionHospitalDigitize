@@ -5,8 +5,12 @@ input AMPLIFY {
 type PatientRecordHelpAssignment @model {
   id: ID!
   name: String!
+  gender: String
   age: Int! 
   address: String
+  city: String
+  district: String
+  state: String
   contact: Float
   identity_proof: String!
   card_no: Int!
