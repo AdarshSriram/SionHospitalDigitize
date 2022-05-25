@@ -8,6 +8,37 @@ function makeFieldInputSimple(box_id, errs, value){
     const reqTag = RequiredFieldsRaw.patient.includes(box_id) ||
                         RequiredFieldsRaw.donations.includes(box_id) ||
                         RequiredFieldsRaw.help.includes(box_id) ? "*" : ""
+    if (box_id === "gender"){
+        return (
+            <>
+            <Form.Group className="mb-3" controlId={box_id}>
+                <Form.Label>{(errs[box_id] !== undefined) ? tag + " (" + errs[box_id] + ")": tag + reqTag}</Form.Label>
+                <select class="form-select" aria-label="Default select example" id={box_id}>
+                    <option selected>--</option>
+                    <option value="M">Male</option>
+                    <option value="F">Female</option>
+                    <option value="Other">Other</option>
+                </select>
+                <h5>{errs.box_id}</h5>
+            </Form.Group>
+            </>
+        )
+    }
+    if (box_id === "help_given"){
+        return (
+            <>
+            <Form.Group className="mb-3" controlId={box_id}>
+                <Form.Label>{(errs[box_id] !== undefined) ? tag + " (" + errs[box_id] + ")": tag + reqTag}</Form.Label>
+                <select class="form-select" aria-label="Default select example" id={box_id}>
+                    <option selected>--</option>
+                    <option value="Y">Yes</option>
+                    <option value="N">No</option>
+                </select>
+                <h5>{errs.box_id}</h5>
+            </Form.Group>
+            </>
+        )
+    }
     return (
         <>
         <Form.Group className="mb-3" controlId={box_id}>
@@ -76,7 +107,27 @@ function FilterCheckBoxes(){
                     
                     <Col>
                     <Form.Group className="mb-3" controlId={field+"_input"}>
-                            <Form.Control placeholder={PrettyColumnMap[field]} />
+                            {field === "gender" ? 
+                            <>
+                            <select class={"form-select"} aria-label="Default select example" id={field+"_drop_input"}>
+                                <option selected>--</option>
+                                <option value="M">Male</option>
+                                <option value="F">Female</option>
+                                <option value="Other">Other</option>
+                            </select>
+                            </>
+                        : 
+                        field === "help_given" ?
+                        <>
+                            <select class={"form-select"} aria-label="Default select example" id={field+"_drop_input"}>
+                                <option selected>--</option>
+                                <option value="Y">Yes</option>
+                                <option value="N">No</option>
+                            </select>
+                            </>
+                        :
+                        <Form.Control placeholder={PrettyColumnMap[field]} />
+                        }
                         </Form.Group>
                     </Col>
                     </Row>

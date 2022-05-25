@@ -135,8 +135,19 @@ function Adder (updateInitRecord){
         var tmp = {}
         for (const fieldDiv of divList){
             const inputBox = fieldDiv.getElementsByTagName("input")
-            var val = inputBox[0].value
-            const fieldName = inputBox[0].id
+            const selBox = fieldDiv.getElementsByClassName("form-select")
+            var val;
+            var fieldName;
+            if (selBox.length){
+                val = selBox[0].value
+                fieldName = selBox[0].id
+                console.log(val)
+            }
+            else{
+            val = inputBox[0].value
+            fieldName = inputBox[0].id
+            }
+            
             if (!help || (help && !InputFieldsRaw.donations.includes(fieldName)) || fieldName !=="donations"){
                 val = !TypeSorted.string.includes(fieldName) ? parseInt(val) : val
                 tmp[fieldName] = val

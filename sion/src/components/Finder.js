@@ -133,7 +133,13 @@ function Finder (){
 
           var queryFilter = []
           for (var key of filterFieldList){
-              const val = document.getElementById(key+"_input").value
+              var val;
+              if (document.getElementById(key+"_input")){
+                  val = document.getElementById(key+"_input").value
+              }
+              else{
+                  val =  document.getElementById(key+"_drop_input").value 
+              }
               var tmp = {}
               var tmpVal = {}
               if (key !=="trust_name"){
